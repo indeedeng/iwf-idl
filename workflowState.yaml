@@ -12,8 +12,12 @@ info:
 paths:
   /api/v1/workflowState/start:
     post:
+      summary: "for invoking WorkflowState.start API"
       requestBody:
-        $ref: '#/components/schemas/WorkflowStateStartRequest'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowStateStartRequest'
       responses:
         '200':
           description: successful operation
@@ -64,7 +68,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ActivityCommand'
-    KV:
+    KeyValue:
       type: object
       properties:
         key:
