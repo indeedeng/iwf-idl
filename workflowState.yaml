@@ -3,7 +3,7 @@ servers:
   - url: 'http://petstore.swagger.io/v2'
 info:
   description: >-
-    This APIs for iwf-server to invoke user workflow code defined in WorkflowState
+    This APIs for iwf-server to invoke user workflow code defined in WorkflowState using any iwf SDKs
   version: 1.0.0
   title: WorkflowState APIs
   license:
