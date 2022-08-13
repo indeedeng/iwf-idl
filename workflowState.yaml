@@ -1,0 +1,99 @@
+openapi: 3.0.0
+servers:
+  - url: 'http://petstore.swagger.io/v2'
+info:
+  description: >-
+    This APIs for iwf-server to invoke user workflow code defined in WorkflowState
+  version: 1.0.0
+  title: WorkflowState APIs
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  /api/v1/workflowState/start:
+    post:
+      requestBody:
+        $ref: '#/components/schemas/WorkflowStateStartRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowStateStartResponse'
+        '405':
+          description: Invalid input
+components:
+  schemas:
+    WorkflowStateStartRequest:
+      type: object
+      properties:
+        workflowType:
+          type: string
+        workflowStateId:
+          type: string
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KV'
+        queryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KV'
+    WorkflowStateStartResponse:
+      type: object
+      properties:
+        upsertSearchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KV'
+        upsertQueryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KV'
+        commandRequest:
+          type: object
+          properties:
+            deciderTriggerType:
+              type: string
+              enum:
+                - ALL_COMMAND_COMPLETED
+                - ANY_COMMAND_COMPLETED
+                - ANY_COMMAND_CLOSED
+            activityCommands:
+              type: array
+              items:
+                $ref: '#/components/schemas/ActivityCommand'
+    KV:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    Command:
+      type: object
+      discriminator:
+        propertyName: commandType
+      properties:
+        commandId:
+          type: string
+        commandType:
+          type: string
+    ActivityCommand:
+      type: object
+      allOf:
+        - $ref: '#components/schemas/Command'
+        - properties:
+            activityType:
+              type: string
+            input:
+              type: string
+            activityOptions:
+              $ref: '#components/schemas/ActivityOptions'
+    ActivityOptions:
+      type: object
+      properties:
+        startToCloseTimeoutSeconds:
+          type: integer
+
