@@ -39,22 +39,22 @@ components:
         searchAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KV'
+            $ref: '#/components/schemas/KeyValue'
         queryAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KV'
+            $ref: '#/components/schemas/KeyValue'
     WorkflowStateStartResponse:
       type: object
       properties:
         upsertSearchAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KV'
+            $ref: '#/components/schemas/KeyValue'
         upsertQueryAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KV'
+            $ref: '#/components/schemas/KeyValue'
         commandRequest:
           type: object
           properties:
