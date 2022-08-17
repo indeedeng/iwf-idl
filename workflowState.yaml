@@ -75,29 +75,19 @@ components:
           type: string
         value:
           type: string
-    Command:
+    ActivityCommand:
       type: object
-      discriminator:
-        propertyName: commandType
       properties:
         commandId:
           type: string
-        commandType:
+        activityType:
           type: string
-    ActivityCommand:
-      type: object
-      allOf:
-        - $ref: '#components/schemas/Command'
-        - properties:
-            activityType:
-              type: string
-            input:
-              type: string
-            activityOptions:
-              $ref: '#components/schemas/ActivityOptions'
-    ActivityOptions:
-      type: object
-      properties:
-        startToCloseTimeoutSeconds:
-          type: integer
+        input:
+          type: string
+        activityOptions:
+          type: object
+          properties:
+            startToCloseTimeoutSeconds:
+              type: integer
+
 
