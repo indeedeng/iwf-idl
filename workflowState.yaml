@@ -56,18 +56,20 @@ components:
           items:
             $ref: '#/components/schemas/KeyValue'
         commandRequest:
-          type: object
-          properties:
-            deciderTriggerType:
-              type: string
-              enum:
-                - ALL_COMMAND_COMPLETED
-                - ANY_COMMAND_COMPLETED
-                - ANY_COMMAND_CLOSED
-            activityCommands:
-              type: array
-              items:
-                $ref: '#/components/schemas/ActivityCommand'
+          $ref: '#/components/schemas/CommandRequest'
+    CommandRequest:
+      type: object
+      properties:
+        deciderTriggerType:
+          type: string
+          enum:
+            - ALL_COMMAND_COMPLETED
+            - ANY_COMMAND_COMPLETED
+            - ANY_COMMAND_CLOSED
+        activityCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityCommand'
     KeyValue:
       type: object
       properties:
@@ -85,9 +87,11 @@ components:
         input:
           type: string
         activityOptions:
-          type: object
-          properties:
-            startToCloseTimeoutSeconds:
-              type: integer
+          $ref: '#/components/schemas/ActivityOptions'
+    ActivityOptions:
+      type: object
+      properties:
+        startToCloseTimeoutSeconds:
+          type: integer
 
 
