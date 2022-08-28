@@ -27,6 +27,23 @@ paths:
                 $ref: '#/components/schemas/WorkflowStateStartResponse'
         '405':
           description: Invalid input
+  /api/v1/workflowState/decide:
+    post:
+      summary: "for invoking WorkflowState.decide API"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowStateDecideRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowStateDecideResponse'
+        '405':
+          description: Invalid input
 components:
   schemas:
     WorkflowStateStartRequest:
@@ -57,6 +74,54 @@ components:
             $ref: '#/components/schemas/KeyValue'
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
+    WorkflowStateDecideRequest:
+      type: object
+      properties:
+        workflowType:
+          type: string
+        workflowStateId:
+          type: string
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        queryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        commandRequest:
+          $ref: '#/components/schemas/CommandRequest'
+    WorkflowStateDecideResponse:
+      type: object
+      properties:
+        stateDecision:
+          type: object
+          items:
+            $ref: '#/components/schemas/StateDecision'
+    StateDecision:
+      type: object
+      properties:
+        waitForMoreCommandResults:
+          type: boolean
+        nextStates:
+          type: array
+          items:
+            $ref: '#/components/schemas/StateMovement'
+        upsertSearchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        upsertQueryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+    StateMovement:
+      type: object
+      properties:
+        stateId:
+          type: string
+        nextStateInput:
+          type: string
     CommandRequest:
       type: object
       properties:
