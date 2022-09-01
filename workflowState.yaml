@@ -53,6 +53,8 @@ components:
           type: string
         workflowStateId:
           type: string
+        stateInput:
+          $ref: '#/components/schemas/EncodedObject'
         searchAttributes:
           type: array
           items:
@@ -74,6 +76,10 @@ components:
             $ref: '#/components/schemas/KeyValue'
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
+        upsertStateLocalAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
     WorkflowStateDecideRequest:
       type: object
       properties:
@@ -89,8 +95,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        commandRequest:
-          $ref: '#/components/schemas/CommandRequest'
+        stateLocalAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        commandResults:
+          $ref: '#/components/schemas/CommandResults'
     WorkflowStateDecideResponse:
       type: object
       properties:
@@ -121,7 +131,7 @@ components:
         stateId:
           type: string
         nextStateInput:
-          type: string
+          $ref: '#/components/schemas/EncodedObject'
     CommandRequest:
       type: object
       properties:
@@ -135,12 +145,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ActivityCommand'
+    CommandResults:
+      type: object
+      properties:
+        activityResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityResult'
+        signalResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignalResult'
+        timerResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimerResult'
     KeyValue:
       type: object
       properties:
         key:
           type: string
         value:
+          $ref: '#/components/schemas/EncodedObject'
+    EncodedObject:
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - JSON
+        data:
           type: string
     ActivityCommand:
       type: object
@@ -150,7 +184,7 @@ components:
         activityType:
           type: string
         input:
-          type: string
+          $ref: '#/components/schemas/EncodedObject'
         activityOptions:
           $ref: '#/components/schemas/ActivityOptions'
     ActivityOptions:
@@ -158,5 +192,52 @@ components:
       properties:
         startToCloseTimeoutSeconds:
           type: integer
+    ActivityResult:
+      type: object
+      properties:
+        commandId:
+          type: string
+        activityType:
+          type: string
+        output:
+          $ref: '#/components/schemas/EncodedObject'
+        activityStatus:
+          type: string
+          enum:
+            - OPEN
+            - COMPLETED
+            - TIMEOUT
+            - FAILED
+        timeoutType:
+          type: string
+          enum:
+            - SCHEDULED_TO_START
+            - START_TO_CLOSE
+            - SCHEDULE_TO_CLOSE
+            - HEARTBEAT
+    TimerResult:
+      type: object
+      properties:
+        commandId:
+          type: string
+        timerStatus:
+          type: string
+          enum:
+            - SCHEDULED
+            - FIRED
+    SignalResult:
+      type: object
+      properties:
+        commandId:
+          type: string
+        signalStatus:
+          type: string
+          enum:
+            - WAITING
+            - RECEIVED
+        signalName:
+          type: string
+        signalValue:
+          $ref: '#/components/schemas/EncodedObject'
 
 
