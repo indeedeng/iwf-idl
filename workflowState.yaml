@@ -149,6 +149,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ActivityCommand'
+        timerCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimerCommand'
+        signalCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignalCommand'
     CommandResults:
       type: object
       properties:
@@ -191,6 +199,20 @@ components:
           $ref: '#/components/schemas/EncodedObject'
         activityOptions:
           $ref: '#/components/schemas/ActivityOptions'
+    TimerCommand:
+      type: object
+      properties:
+        commandId:
+          type: string
+        firingUnixTimestampSeconds:
+          type: integer
+    SignalCommand:
+      type: object
+      properties:
+        commandId:
+          type: string
+        signalName:
+          type: string
     ActivityOptions:
       type: object
       properties:
