@@ -49,6 +49,8 @@ components:
     WorkflowStateStartRequest:
       type: object
       properties:
+        context:
+          $ref: '#/components/schemas/Context'
         workflowType:
           type: string
         workflowStateId:
@@ -83,6 +85,8 @@ components:
     WorkflowStateDecideRequest:
       type: object
       properties:
+        context:
+          $ref: '#/components/schemas/Context'
         workflowType:
           type: string
         workflowStateId:
@@ -239,5 +243,17 @@ components:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
+    Context:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        workflowStartedTimestamp:
+          type: integer
+        stateExecutionId:
+          type: string
+
 
 
