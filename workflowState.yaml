@@ -56,32 +56,32 @@ components:
         workflowStateId:
           type: string
         stateInput:
-          $ref: '#/components/schemas/EncodedObject'
+          $ref: './common.yaml#/components/schemas/EncodedObject'
         searchAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
         queryAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
     WorkflowStateStartResponse:
       type: object
       properties:
         upsertSearchAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
         upsertQueryAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
         upsertStateLocalAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
     WorkflowStateDecideRequest:
       type: object
       properties:
@@ -94,15 +94,15 @@ components:
         searchAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
         queryAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
         stateLocalAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
         commandResults:
           $ref: '#/components/schemas/CommandResults'
     WorkflowStateDecideResponse:
@@ -124,18 +124,18 @@ components:
         upsertSearchAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
         upsertQueryAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: './common.yaml#/components/schemas/KeyValue'
     StateMovement:
       type: object
       properties:
         stateId:
           type: string
         nextStateInput:
-          $ref: '#/components/schemas/EncodedObject'
+          $ref: './common.yaml#/components/schemas/EncodedObject'
     CommandRequest:
       type: object
       properties:
@@ -172,22 +172,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-    KeyValue:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          $ref: '#/components/schemas/EncodedObject'
-    EncodedObject:
-      type: object
-      properties:
-        encoding:
-          type: string
-          enum:
-            - JSON
-        data:
-          type: string
     ActivityCommand:
       type: object
       properties:
@@ -196,7 +180,7 @@ components:
         activityType:
           type: string
         input:
-          $ref: '#/components/schemas/EncodedObject'
+          $ref: './common.yaml#/components/schemas/EncodedObject'
         activityOptions:
           $ref: '#/components/schemas/ActivityOptions'
     TimerCommand:
@@ -226,7 +210,7 @@ components:
         activityType:
           type: string
         output:
-          $ref: '#/components/schemas/EncodedObject'
+          $ref: './common.yaml#/components/schemas/EncodedObject'
         activityStatus:
           type: string
           enum:
@@ -264,7 +248,7 @@ components:
         signalName:
           type: string
         signalValue:
-          $ref: '#/components/schemas/EncodedObject'
+          $ref: './common.yaml#/components/schemas/EncodedObject'
     Context:
       type: object
       properties:

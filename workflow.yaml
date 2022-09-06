@@ -1,0 +1,53 @@
+openapi: 3.0.0
+servers:
+  - url: 'http://petstore.swagger.io/v2'
+info:
+  description: >-
+    This APIs for iwf SDKs to operate workflows
+  version: 1.0.0
+  title: Workflow APIs
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  /api/v1/workflow/start:
+    post:
+      summary: "for a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowStartRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowStartResponse'
+        '405':
+          description: Invalid input
+components:
+  schemas:
+    WorkflowStartRequest:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        iwfWorkflowType:
+          type: string
+        workflowTimeoutSeconds:
+          type: integer
+        iwfWorkerUrl:
+          type: string
+        startStateId:
+          type: string
+        stateInput:
+          $ref: './common.yaml#/components/schemas/EncodedObject'
+        stateOptions:
+          $ref: './common.yaml#/components/schemas/WorkflowStateOptions'
+    WorkflowStartResponse:
+      type: object
+      properties:
+        workflowRunId:
+          type: string
