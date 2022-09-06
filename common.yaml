@@ -1,0 +1,18 @@
+components:
+  schemas:
+    KeyValue:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          $ref: '#/components/schemas/EncodedObject'
+    EncodedObject:
+      type: object
+      properties:
+        encoding:
+          type: string
+          enum:
+            - JSON
+        data:
+          type: string
