@@ -47,4 +47,9 @@ components:
           enum:
             - NONE
             - ALL_UNFINISHED
+    ErrorResponse:
+      type: object
+      properties:
+        detail: string
+        subStatus: string
 

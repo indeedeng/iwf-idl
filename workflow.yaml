@@ -27,6 +27,10 @@ paths:
                 $ref: '#/components/schemas/WorkflowStartResponse'
         '405':
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/ErrorResponse'
 components:
   schemas:
     WorkflowStartRequest:

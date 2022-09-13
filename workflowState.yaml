@@ -27,6 +27,10 @@ paths:
                 $ref: '#/components/schemas/WorkflowStateStartResponse'
         '405':
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/ErrorResponse'
   /api/v1/workflowState/decide:
     post:
       summary: "for invoking WorkflowState.decide API"
@@ -44,6 +48,10 @@ paths:
                 $ref: '#/components/schemas/WorkflowStateDecideResponse'
         '405':
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: './common.yaml#/components/schemas/ErrorResponse'
 components:
   schemas:
     WorkflowStateStartRequest:
@@ -136,6 +144,8 @@ components:
           type: string
         nextStateInput:
           $ref: './common.yaml#/components/schemas/EncodedObject'
+        nextStateOptions:
+          $ref: './common.yaml#/components/schemas/WorkflowStateOptions'
     CommandRequest:
       type: object
       properties:
