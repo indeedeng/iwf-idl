@@ -30,7 +30,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './common.yaml#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflowState/start:
     post:
       summary: "for invoking WorkflowState.start API"
@@ -51,7 +51,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './common.yaml#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflowState/decide:
     post:
       summary: "for invoking WorkflowState.decide API"
@@ -72,7 +72,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './common.yaml#/components/schemas/ErrorResponse'                
+                $ref: '#/components/schemas/ErrorResponse'                
 components:
   schemas:
     KeyValue:
@@ -125,8 +125,10 @@ components:
     ErrorResponse:
       type: object
       properties:
-        detail: string
-        subStatus: string  
+        detail: 
+          type: string
+        subStatus: 
+          type: string  
     WorkflowStartRequest:
       type: object
       properties:
@@ -141,9 +143,9 @@ components:
         startStateId:
           type: string
         stateInput:
-          $ref: './common.yaml#/components/schemas/EncodedObject'
+          $ref: '#/components/schemas/EncodedObject'
         stateOptions:
-          $ref: './common.yaml#/components/schemas/WorkflowStateOptions'
+          $ref: '#/components/schemas/WorkflowStateOptions'
     WorkflowStartResponse:
       type: object
       properties:
@@ -159,32 +161,32 @@ components:
         workflowStateId:
           type: string
         stateInput:
-          $ref: './common.yaml#/components/schemas/EncodedObject'
+          $ref: '#/components/schemas/EncodedObject'
         searchAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
         queryAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
     WorkflowStateStartResponse:
       type: object
       properties:
         upsertSearchAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
         upsertQueryAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
         upsertStateLocalAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
     WorkflowStateDecideRequest:
       type: object
       properties:
@@ -197,15 +199,15 @@ components:
         searchAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
         queryAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
         stateLocalAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
         commandResults:
           $ref: '#/components/schemas/CommandResults'
     WorkflowStateDecideResponse:
@@ -227,20 +229,20 @@ components:
         upsertSearchAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
         upsertQueryAttributes:
           type: array
           items:
-            $ref: './common.yaml#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/KeyValue'
     StateMovement:
       type: object
       properties:
         stateId:
           type: string
         nextStateInput:
-          $ref: './common.yaml#/components/schemas/EncodedObject'
+          $ref: '#/components/schemas/EncodedObject'
         nextStateOptions:
-          $ref: './common.yaml#/components/schemas/WorkflowStateOptions'
+          $ref: '#/components/schemas/WorkflowStateOptions'
     CommandRequest:
       type: object
       properties:
@@ -285,7 +287,7 @@ components:
         activityType:
           type: string
         input:
-          $ref: './common.yaml#/components/schemas/EncodedObject'
+          $ref: '#/components/schemas/EncodedObject'
         activityOptions:
           $ref: '#/components/schemas/ActivityOptions'
     TimerCommand:
@@ -315,7 +317,7 @@ components:
         activityType:
           type: string
         output:
-          $ref: './common.yaml#/components/schemas/EncodedObject'
+          $ref: '#/components/schemas/EncodedObject'
         activityStatus:
           type: string
           enum:
@@ -353,7 +355,7 @@ components:
         signalName:
           type: string
         signalValue:
-          $ref: './common.yaml#/components/schemas/EncodedObject'
+          $ref: '#/components/schemas/EncodedObject'
     Context:
       type: object
       properties:
