@@ -214,9 +214,7 @@ components:
       type: object
       properties:
         stateDecision:
-          type: object
-          items:
-            $ref: '#/components/schemas/StateDecision'
+          $ref: '#/components/schemas/StateDecision'
     StateDecision:
       type: object
       properties:
