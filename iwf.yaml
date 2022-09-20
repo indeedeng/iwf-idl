@@ -295,6 +295,7 @@ components:
           type: string
         firingUnixTimestampSeconds:
           type: integer
+          format: int64
     SignalCommand:
       type: object
       properties:
@@ -363,5 +364,6 @@ components:
           type: string
         workflowStartedTimestamp:
           type: integer
+          format: int64
         stateExecutionId:
           type: string          
