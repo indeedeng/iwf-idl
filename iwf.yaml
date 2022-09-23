@@ -10,9 +10,10 @@ info:
     name: Apache-2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 paths:
+  # workflow APIs are hosted by iWF server for iWF SDKs to call
   /api/v1/workflow/start:
     post:
-      summary: "for a workflow"
+      summary: "start a workflow"
       requestBody:
         content:
           application/json:
@@ -31,6 +32,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/signal:
+    post:
+      summary: "signal a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowSignalRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSignalResponse'
+        '405':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/query:
+    post:
+      summary: "query a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowQueryRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowQueryResponse'
+        '405':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  # workflowState APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
       summary: "for invoking WorkflowState.start API"
@@ -163,6 +207,42 @@ components:
       properties:
         workflowRunId:
           type: string
+    WorkflowSignalRequest:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        signalName:
+          type: string
+        signalValue:
+          $ref: '#/components/schemas/EncodedObject'
+    WorkflowSignalResponse:
+      type: object
+      properties:
+        workflowRunId: # return the runId if runId is not specified in request
+          type: string
+    WorkflowQueryRequest:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        attributeKeys: # return all attributes if this is empty
+          type: array
+          items:
+            type: string
+    WorkflowQueryResponse:
+      type: object
+      properties:
+        workflowRunId: # return the runId if runId is not specified in request
+          type: string
+        queryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
     WorkflowStateStartRequest:
       type: object
       properties:
