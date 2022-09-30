@@ -409,6 +409,8 @@ components:
           type: string
         workflowStateId:
           type: string
+        stateInput:
+          $ref: '#/components/schemas/EncodedObject'
         searchAttributes:
           type: array
           items:
