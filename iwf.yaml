@@ -187,6 +187,12 @@ components:
           type: string  
     WorkflowStartRequest:
       type: object
+      required:
+        - workflowId
+        - iwfWorkerUrl
+        - iwfWorkflowType
+        - startStateId
+        - workflowTimeoutSeconds
       properties:
         workflowId:
           type: string
@@ -209,6 +215,9 @@ components:
           type: string
     WorkflowSignalRequest:
       type: object
+      required:
+        - workflowId
+        - signalName
       properties:
         workflowId:
           type: string
@@ -225,6 +234,8 @@ components:
           type: string
     WorkflowQueryRequest:
       type: object
+      required:
+        - workflowId
       properties:
         workflowId:
           type: string
@@ -245,6 +256,10 @@ components:
             $ref: '#/components/schemas/KeyValue'
     WorkflowStateStartRequest:
       type: object
+      required:
+        - context
+        - workflowStateId
+        - workflowType
       properties:
         context:
           $ref: '#/components/schemas/Context'
@@ -281,6 +296,10 @@ components:
             $ref: '#/components/schemas/KeyValue'
     WorkflowStateDecideRequest:
       type: object
+      required:
+        - context
+        - workflowType
+        - workflowStateId
       properties:
         context:
           $ref: '#/components/schemas/Context'
@@ -326,6 +345,8 @@ components:
             $ref: '#/components/schemas/KeyValue'
     StateMovement:
       type: object
+      required:
+        - stateId
       properties:
         stateId:
           type: string
@@ -335,6 +356,8 @@ components:
           $ref: '#/components/schemas/WorkflowStateOptions'
     CommandRequest:
       type: object
+      required:
+        - deciderTriggerType
       properties:
         deciderTriggerType:
           type: string
@@ -370,6 +393,9 @@ components:
           items:
             $ref: '#/components/schemas/TimerResult'
     ActivityCommand:
+      required:
+        - commandId
+        - activityType
       type: object
       properties:
         commandId:
@@ -382,6 +408,9 @@ components:
           $ref: '#/components/schemas/ActivityOptions'
     TimerCommand:
       type: object
+      required:
+        - commandId
+        - firingUnixTimestampSeconds
       properties:
         commandId:
           type: string
@@ -390,6 +419,9 @@ components:
           format: int64
     SignalCommand:
       type: object
+      required:
+        - commandId
+        - signalName
       properties:
         commandId:
           type: string
@@ -402,6 +434,10 @@ components:
           type: integer
     ActivityResult:
       type: object
+      required:
+        - commandId
+        - activityType
+        - activityStatus
       properties:
         commandId:
           type: string
@@ -425,6 +461,9 @@ components:
             - HEARTBEAT
     TimerResult:
       type: object
+      required:
+        - commandId
+        - timerStatus
       properties:
         commandId:
           type: string
@@ -435,6 +474,10 @@ components:
             - FIRED
     SignalResult:
       type: object
+      required:
+        - commandId
+        - signalName
+        - signalStatus
       properties:
         commandId:
           type: string
@@ -449,6 +492,12 @@ components:
           $ref: '#/components/schemas/EncodedObject'
     Context:
       type: object
+      required:
+        - commandId
+        - workflowId
+        - workflowRunId
+        - workflowStartedTimestamp
+        - stateExecutionId
       properties:
         workflowId:
           type: string
