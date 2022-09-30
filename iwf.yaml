@@ -26,7 +26,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowStartResponse'
-        '405':
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -47,7 +47,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowSignalResponse'
-        '405':
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -68,7 +68,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowQueryResponse'
-        '405':
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/get:
+    post:
+      summary: "get a workflow's status and results(if completed & requested)"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowGetRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowGetResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/search:
+    post:
+      summary: "search for workflows by a search attribute query"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowSearchRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSearchResponse'
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -90,7 +132,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowStateStartResponse'
-        '405':
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -111,7 +153,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowStateDecideResponse'
-        '405':
+        '400':
           description: Invalid input
           content:
             application/json:
@@ -229,9 +271,7 @@ components:
           $ref: '#/components/schemas/EncodedObject'
     WorkflowSignalResponse:
       type: object
-      properties:
-        workflowRunId: # return the runId if runId is not specified in request
-          type: string
+      properties: {}
     WorkflowQueryRequest:
       type: object
       required:
@@ -248,12 +288,74 @@ components:
     WorkflowQueryResponse:
       type: object
       properties:
-        workflowRunId: # return the runId if runId is not specified in request
-          type: string
         queryAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+    WorkflowGetRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        needsResults: # result will be return if this is true, and workflow is completed
+          type: boolean
+    WorkflowGetResponse:
+      type: object
+      properties:
+        workflowRunId:
+          type: string
+        workflowStatus:
+          type: string
+          enum:
+            - RUNNING
+            - COMPLETED
+            - FAILED
+            - TIMEOUT
+            - TERMINATED
+            - CANCELED
+        results: # result will be return if needsResults is true in request, and workflow is completed
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowResult'
+    WorkflowResult:
+      type: object
+      required:
+        - completedStateExecutionId
+        - completedStateId
+      properties:
+        completedStateId:
+          type: string
+        completedStateExecutionId:
+          type: string
+        completedStateOutput:
+          $ref: '#/components/schemas/EncodedObject'
+    WorkflowSearchRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+        pageSize:
+          type: number
+    WorkflowSearchResponse:
+      type: object
+      properties:
+        queryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkflowSearchResponseEntry'
+    WorkflowSearchResponseEntry:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
     WorkflowStateStartRequest:
       type: object
       required:
