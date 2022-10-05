@@ -377,6 +377,9 @@ components:
             $ref: '#/components/schemas/WorkflowSearchResponseEntry'
     WorkflowSearchResponseEntry:
       type: object
+      required:
+        - workflowId
+        - workflowRunId
       properties:
         workflowId:
           type: string
