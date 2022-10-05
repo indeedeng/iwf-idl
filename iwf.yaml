@@ -366,8 +366,8 @@ components:
         query:
           type: string
         pageSize:
-          type: number
-          format: int64
+          type: integer
+          format: int32
     WorkflowSearchResponse:
       type: object
       properties:
