@@ -321,8 +321,8 @@ components:
         results: # result will be return if needsResults is true in request, and workflow is completed
           type: array
           items:
-            $ref: '#/components/schemas/WorkflowResult'
-    WorkflowResult:
+            $ref: '#/components/schemas/StateCompletionOutput'
+    StateCompletionOutput:
       type: object
       required:
         - completedStateExecutionId
