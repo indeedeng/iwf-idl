@@ -303,6 +303,8 @@ components:
           type: string
         needsResults: # result will be return if this is true, and workflow is completed
           type: boolean
+        waitIfStillRunning: # wait until the workflow is completed, only works when needResults = true
+          type: boolean
     WorkflowGetResponse:
       type: object
       required:
