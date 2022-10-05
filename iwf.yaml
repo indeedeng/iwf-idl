@@ -194,8 +194,6 @@ components:
       properties:
         encoding:
           type: string
-          enum:
-            - JSON
         data:
           type: string
     SearchAttribute:
