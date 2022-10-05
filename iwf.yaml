@@ -317,6 +317,7 @@ components:
             - TIMEOUT
             - TERMINATED
             - CANCELED
+            - CONTINUED_AS_NEW
         results: # result will be return if needsResults is true in request, and workflow is completed
           type: array
           items:
