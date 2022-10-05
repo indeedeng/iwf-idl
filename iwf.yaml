@@ -305,6 +305,9 @@ components:
           type: boolean
     WorkflowGetResponse:
       type: object
+      required:
+        - workflowRunId
+        - workflowStatus
       properties:
         workflowRunId:
           type: string
