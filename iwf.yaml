@@ -285,9 +285,6 @@ components:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
-    WorkflowSignalResponse:
-      type: object
-      properties: {}
     WorkflowQueryRequest:
       type: object
       required:
