@@ -27,6 +27,23 @@ paths:
                 $ref: '#/components/schemas/WorkflowStartResponse'
         '405':
           description: Invalid input
+  /api/v1/workflow/signal:
+    post:
+      summary: "send signal to a running workflow execution"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowSignalRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowSignalResponse'
+        '405':
+          description: Invalid input
 components:
   schemas:
     WorkflowStartRequest:
@@ -51,3 +68,19 @@ components:
       properties:
         workflowRunId:
           type: string
+    WorkflowSignalRequest:
+      type: object
+      properties:
+        workflowId:
+          type: string
+        iwfWorkflowType:
+          type: string
+        workflowRunId:
+          type: string
+        message:
+          $ref: './common.yaml#/components/schemas/EncodedObject'
+    WorkflowSignalResponse:
+      type: object
+      properties:
+        isSuccessful:
+          type: boolean
