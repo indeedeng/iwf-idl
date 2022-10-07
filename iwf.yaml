@@ -43,10 +43,7 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WorkflowSignalResponse'
+          content: {}
         '400':
           description: Invalid input
           content:
@@ -288,9 +285,6 @@ components:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
-    WorkflowSignalResponse:
-      type: object
-      properties: {}
     WorkflowQueryRequest:
       type: object
       required:
