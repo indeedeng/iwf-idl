@@ -43,16 +43,10 @@ paths:
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WorkflowSignalResponse'
+          content: {}
         '400':
           description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          content: {}
   /api/v1/workflow/query:
     post:
       summary: "query a workflow"
