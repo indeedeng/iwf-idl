@@ -46,7 +46,10 @@ paths:
           content: {}
         '400':
           description: Invalid input
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/query:
     post:
       summary: "query a workflow"
