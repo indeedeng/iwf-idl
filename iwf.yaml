@@ -411,14 +411,14 @@ components:
         resetType:
           type: string
           enum:
-            - HistoryEventId
-            - FirstDecisionCompleted
-            - LastDecisionCompleted
-            - LastContinuedAsNew
-            - BadBinary
-            - DecisionCompletedTime
-            - FirstDecisionScheduled
-            - LastDecisionScheduled
+            - HISTORY_EVENT_ID
+            - FIRST_DECISION_COMPLETED
+            - LAST_DECISION_COMPLETED
+            - LAST_CONTINUED_AS_NEW
+            - BAD_BINARY
+            - DECISION_COMPLETED_TIME
+            - FIRST_DECISION_SCHEDULED
+            - LAST_DECISION_SCHEDULED
         historyEventId: #The eventID of any event after DecisionTaskStarted you want to reset to (this event is exclusive in a new run. The new run history will fork and continue from the previous eventID of this). It can be DecisionTaskCompleted, DecisionTaskFailed or others
           type: integer
         reason: #reason to do the reset for tracking purpose
@@ -433,6 +433,8 @@ components:
           type: boolean
     WorkflowResetResponse:
       type: object
+      required:
+        - workflowRunId
       properties:
         workflowRunId:
           type: string
