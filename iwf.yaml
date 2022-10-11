@@ -219,8 +219,11 @@ components:
       properties:
         key:
           type: string
-        value:
+        stringValue: # for any value than can be stored as string: keyword, text, wildcard
           type: string
+        integerValue:
+          type: integer
+          format: int64
         valueType:
           type: string
           enum:
