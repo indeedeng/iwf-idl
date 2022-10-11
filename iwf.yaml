@@ -134,6 +134,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/reset:
+    post:
+      summary: "reset a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowResetRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowResetResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   # workflowState APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
@@ -375,6 +396,44 @@ components:
       properties:
         workflowId:
           type: string
+        workflowRunId:
+          type: string
+    WorkflowResetRequest:
+      type: object
+      required:
+        - workflowId
+        - resetType
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        resetType:
+          type: string
+          enum:
+            - HistoryEventId
+            - FirstDecisionCompleted
+            - LastDecisionCompleted
+            - LastContinuedAsNew
+            - BadBinary
+            - DecisionCompletedTime
+            - FirstDecisionScheduled
+            - LastDecisionScheduled
+        historyEventId: #The eventID of any event after DecisionTaskStarted you want to reset to (this event is exclusive in a new run. The new run history will fork and continue from the previous eventID of this). It can be DecisionTaskCompleted, DecisionTaskFailed or others
+          type: integer
+        reason: #reason to do the reset for tracking purpose
+          type: string
+        decision_offset: #based on the reset point calculated by resetType, this offset will move/offset the point by decision. Currently only negative number is supported, and only works with LastDecisionCompleted
+          type: integer
+        reset_bad_binary_checksum: #Binary checksum for resetType of BadBinary
+          type: string
+        earliest_time: #EarliestTime of decision start time, required for resetType of DecisionCompletedTime.Supported formats are '2006-01-02T15:04:05+07:00', raw UnixNano and time range (N<duration>), where 0 < N < 1000000 and duration (full-notation/short-notation) can be second/s, minute/m, hour/h, day/d, week/w, month/M or year/y. For example, '15minute' or '15m' implies last 15 minutes, meaning that workflow will be reset to the first decision that completed in last 15 minutes
+          type: string
+        skip_signal_reapply: #whether or not skipping signals reapply after the reset point
+          type: boolean
+    WorkflowResetResponse:
+      type: object
+      properties:
         workflowRunId:
           type: string
     WorkflowStateStartRequest:
