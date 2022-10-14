@@ -299,13 +299,13 @@ components:
       type: object
       required:
         - workflowId
-        - signalName
+        - signalChannelName
       properties:
         workflowId:
           type: string
         workflowRunId:
           type: string
-        signalName:
+        signalChannelName:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
@@ -610,11 +610,11 @@ components:
       type: object
       required:
         - commandId
-        - signalName
+        - signalChannelName
       properties:
         commandId:
           type: string
-        signalName:
+        signalChannelName:
           type: string
     ActivityOptions:
       type: object
@@ -665,17 +665,17 @@ components:
       type: object
       required:
         - commandId
-        - signalName
-        - signalStatus
+        - signalChannelName
+        - signalRequestStatus
       properties:
         commandId:
           type: string
-        signalStatus:
+        signalRequestStatus:
           type: string
           enum:
             - WAITING
             - RECEIVED
-        signalName:
+        signalChannelName:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
