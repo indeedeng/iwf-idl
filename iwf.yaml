@@ -622,7 +622,7 @@ components:
         onQueryAttributeChangeCommands:
           type: array
           items:
-            $ref: '#/components/schemas/OnQueryAttributeChangeCommands'
+            $ref: '#/components/schemas/OnQueryAttributeChangeCommand'
     CommandResults:
       type: object
       properties:
