@@ -50,21 +50,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/query:
+  /api/v1/workflow/queryattributes/get:
     post:
-      summary: "query a workflow"
+      summary: "get workflow query attributes"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowQueryRequest'
+              $ref: '#/components/schemas/WorkflowGetQueryAttributesRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowQueryResponse'
+                $ref: '#/components/schemas/WorkflowGetQueryAttributesResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/searchattributes/get:
+    post:
+      summary: "get workflow search attributes"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowGetQueryAttributesRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowGetQueryAttributesResponse'
         '400':
           description: Invalid input
           content:
@@ -92,7 +113,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/getWithLongWait: ## this will wait for workflow to close if still running
+  /api/v1/workflow/getWithWait: ## this will wait for workflow to close if still running
     post:
       summary: "get a workflow's status and results(if completed & requested), wait if the workflow is still running"
       requestBody:
@@ -214,6 +235,16 @@ components:
           type: string
         data:
           type: string
+    SearchAttributeKeyAndType:
+      type: object
+      properties:
+        key:
+          type: string
+        valueType:
+          type: string
+          enum:
+            - KEYWORD
+            - INT
     SearchAttribute:
       type: object
       properties:
@@ -309,7 +340,7 @@ components:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
-    WorkflowQueryRequest:
+    WorkflowGetQueryAttributesRequest:
       type: object
       required:
         - workflowId
@@ -322,7 +353,27 @@ components:
           type: array
           items:
             type: string
-    WorkflowQueryResponse:
+    WorkflowGetQueryAttributesResponse:
+      type: object
+      properties:
+        queryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+    WorkflowGetSearchAttributesRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        attributeKeys: # return all attributes if this is empty
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttributeKeyAndType'
+    WorkflowGetSearchAttributesResponse:
       type: object
       properties:
         queryAttributes:
@@ -340,6 +391,8 @@ components:
           type: string
         needsResults: # result will be return if this is true, and workflow is completed
           type: boolean
+        waitTimeSeconds: # amount of time that the request will be waiting for, only works for getWithWait API
+          type: integer
     WorkflowGetResponse:
       type: object
       required:
