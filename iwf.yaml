@@ -619,10 +619,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SignalCommand'
-        onQueryAttributeChangeCommands:
+        waitForQueryAttributeChangeCommands:
           type: array
           items:
-            $ref: '#/components/schemas/OnQueryAttributeChangeCommand'
+            $ref: '#/components/schemas/WaitForQueryAttributeChangeCommand'
     CommandResults:
       type: object
       properties:
@@ -638,10 +638,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-        onQueryAttributeChangeResults:
+        waitForQueryAttributeChangeResults:
           type: array
           items:
-            $ref: '#/components/schemas/OnQueryAttributeChangeResult'
+            $ref: '#/components/schemas/WaitForQueryAttributeChangeResult'
     ActivityCommand:
       required:
         - commandId
@@ -677,7 +677,7 @@ components:
           type: string
         signalChannelName:
           type: string
-    OnQueryAttributeChangeCommand:
+    WaitForQueryAttributeChangeCommand:
       type: object
       required:
         - commandId
@@ -732,7 +732,7 @@ components:
           enum:
             - SCHEDULED
             - FIRED
-    OnQueryAttributeChangeResult:
+    WaitForQueryAttributeChangeResult:
       type: object
       required:
         - commandId
