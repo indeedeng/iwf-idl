@@ -534,6 +534,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        publishToInterStateChannel:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterStateChannelPublishing'
     WorkflowStateDecideRequest:
       type: object
       required:
@@ -619,10 +623,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SignalCommand'
-        onQueryAttributeChangeCommands:
+        interStateChannelCommands:
           type: array
           items:
-            $ref: '#/components/schemas/OnQueryAttributeChangeCommand'
+            $ref: '#/components/schemas/InterStateChannelCommand'
+        waitForQueryAttributeChangeCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/WaitForQueryAttributeChangeCommand'
     CommandResults:
       type: object
       properties:
@@ -634,14 +642,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SignalResult'
+        interStateChannelResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterStateChannelResult'
         timerResults:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-        onQueryAttributeChangeResults:
+        waitForQueryAttributeChangeResults:
           type: array
           items:
-            $ref: '#/components/schemas/OnQueryAttributeChangeResult'
+            $ref: '#/components/schemas/WaitForQueryAttributeChangeResult'
     ActivityCommand:
       required:
         - commandId
@@ -677,7 +689,17 @@ components:
           type: string
         signalChannelName:
           type: string
-    OnQueryAttributeChangeCommand:
+    InterStateChannelCommand:
+      type: object
+      required:
+        - commandId
+        - channelName
+      properties:
+        commandId:
+          type: string
+        channelName:
+          type: string
+    WaitForQueryAttributeChangeCommand:
       type: object
       required:
         - commandId
@@ -732,7 +754,7 @@ components:
           enum:
             - SCHEDULED
             - FIRED
-    OnQueryAttributeChangeResult:
+    WaitForQueryAttributeChangeResult:
       type: object
       required:
         - commandId
@@ -762,6 +784,33 @@ components:
         signalChannelName:
           type: string
         signalValue:
+          $ref: '#/components/schemas/EncodedObject'
+    InterStateChannelResult:
+      type: object
+      required:
+        - commandId
+        - channelName
+        - requestStatus
+      properties:
+        commandId:
+          type: string
+        requestStatus:
+          type: string
+          enum:
+            - WAITING
+            - RECEIVED
+        channelName:
+          type: string
+        value:
+          $ref: '#/components/schemas/EncodedObject'
+    InterStateChannelPublishing:
+      type: object
+      required:
+        - channelName
+      properties:
+        channelName:
+          type: string
+        value:
           $ref: '#/components/schemas/EncodedObject'
     Context:
       type: object
