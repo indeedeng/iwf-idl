@@ -589,6 +589,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        publishToInterStateChannel:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterStateChannelPublishing'
     StateMovement:
       type: object
       required:
