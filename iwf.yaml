@@ -534,6 +534,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        publishToInterStateChannel:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterStateChannelPublishing'
     WorkflowStateDecideRequest:
       type: object
       required:
@@ -619,6 +623,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SignalCommand'
+        interStateChannelCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterStateChannelCommand'
         waitForQueryAttributeChangeCommands:
           type: array
           items:
@@ -634,6 +642,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SignalResult'
+        interStateChannelResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterStateChannelResult'
         timerResults:
           type: array
           items:
@@ -676,6 +688,16 @@ components:
         commandId:
           type: string
         signalChannelName:
+          type: string
+    InterStateChannelCommand:
+      type: object
+      required:
+        - commandId
+        - channelName
+      properties:
+        commandId:
+          type: string
+        channelName:
           type: string
     WaitForQueryAttributeChangeCommand:
       type: object
@@ -762,6 +784,33 @@ components:
         signalChannelName:
           type: string
         signalValue:
+          $ref: '#/components/schemas/EncodedObject'
+    InterStateChannelResult:
+      type: object
+      required:
+        - commandId
+        - channelName
+        - requestStatus
+      properties:
+        commandId:
+          type: string
+        requestStatus:
+          type: string
+          enum:
+            - WAITING
+            - RECEIVED
+        channelName:
+          type: string
+        value:
+          $ref: '#/components/schemas/EncodedObject'
+    InterStateChannelPublishing:
+      type: object
+      required:
+        - channelName
+      properties:
+        channelName:
+          type: string
+        value:
           $ref: '#/components/schemas/EncodedObject'
     Context:
       type: object
