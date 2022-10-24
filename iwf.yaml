@@ -78,14 +78,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowGetQueryAttributesRequest'
+              $ref: '#/components/schemas/WorkflowGetSearchAttributesRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowGetQueryAttributesResponse'
+                $ref: '#/components/schemas/WorkflowGetSearchAttributesResponse'
         '400':
           description: Invalid input
           content:
