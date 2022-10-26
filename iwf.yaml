@@ -276,9 +276,9 @@ components:
           type: string
           enum:
             - LOAD_ALL_WITHOUT_LOCKING
-            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
-            - LOAD_PARTIAL_WITHOUT_LOCKING
-            - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
+#            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
+#            - LOAD_PARTIAL_WITHOUT_LOCKING
+#            - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
         attributeKeys:
           type: array
           items:
@@ -290,7 +290,7 @@ components:
           type: string
           enum:
             - NONE
-            - ALL_UNFINISHED
+            #- ALL_UNFINISHED
     ErrorResponse:
       type: object
       properties:
@@ -575,8 +575,8 @@ components:
     StateDecision:
       type: object
       properties:
-        waitForMoreCommandResults:
-          type: boolean
+#        waitForMoreCommandResults:
+#          type: boolean
         nextStates:
           type: array
           items:
@@ -613,8 +613,8 @@ components:
           type: string
           enum:
             - ALL_COMMAND_COMPLETED
-            - ANY_COMMAND_COMPLETED
-            - ANY_COMMAND_CLOSED
+#            - ANY_COMMAND_COMPLETED
+#            - ANY_COMMAND_CLOSED
         activityCommands:
           type: array
           items:
@@ -631,17 +631,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelCommand'
-        waitForQueryAttributeChangeCommands:
-          type: array
-          items:
-            $ref: '#/components/schemas/WaitForQueryAttributeChangeCommand'
+#        waitForQueryAttributeChangeCommands:
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/WaitForQueryAttributeChangeCommand'
     CommandResults:
       type: object
       properties:
-        activityResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityResult'
+#        activityResults:
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/ActivityResult'
         signalResults:
           type: array
           items:
@@ -654,24 +654,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-        waitForQueryAttributeChangeResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/WaitForQueryAttributeChangeResult'
-    ActivityCommand:
-      required:
-        - commandId
-        - activityType
-      type: object
-      properties:
-        commandId:
-          type: string
-        activityType:
-          type: string
-        input:
-          $ref: '#/components/schemas/EncodedObject'
-        activityOptions:
-          $ref: '#/components/schemas/ActivityOptions'
+#        waitForQueryAttributeChangeResults:
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/WaitForQueryAttributeChangeResult'
+#    ActivityCommand:
+#      required:
+#        - commandId
+#        - activityType
+#      type: object
+#      properties:
+#        commandId:
+#          type: string
+#        activityType:
+#          type: string
+#        input:
+#          $ref: '#/components/schemas/EncodedObject'
+#        activityOptions:
+#          $ref: '#/components/schemas/ActivityOptions'
     TimerCommand:
       type: object
       required:
@@ -703,48 +703,48 @@ components:
           type: string
         channelName:
           type: string
-    WaitForQueryAttributeChangeCommand:
-      type: object
-      required:
-        - commandId
-        - attributeKey
-      properties:
-        commandId:
-          type: string
-        attributeKey:
-          type: string
-    ActivityOptions:
-      type: object
-      properties:
-        startToCloseTimeoutSeconds:
-          type: integer
-    ActivityResult:
-      type: object
-      required:
-        - commandId
-        - activityType
-        - activityStatus
-      properties:
-        commandId:
-          type: string
-        activityType:
-          type: string
-        output:
-          $ref: '#/components/schemas/EncodedObject'
-        activityStatus:
-          type: string
-          enum:
-            - OPEN
-            - COMPLETED
-            - TIMEOUT
-            - FAILED
-        timeoutType:
-          type: string
-          enum:
-            - SCHEDULED_TO_START
-            - START_TO_CLOSE
-            - SCHEDULE_TO_CLOSE
-            - HEARTBEAT
+#    WaitForQueryAttributeChangeCommand:
+#      type: object
+#      required:
+#        - commandId
+#        - attributeKey
+#      properties:
+#        commandId:
+#          type: string
+#        attributeKey:
+#          type: string
+#    ActivityOptions:
+#      type: object
+#      properties:
+#        startToCloseTimeoutSeconds:
+#          type: integer
+#    ActivityResult:
+#      type: object
+#      required:
+#        - commandId
+#        - activityType
+#        - activityStatus
+#      properties:
+#        commandId:
+#          type: string
+#        activityType:
+#          type: string
+#        output:
+#          $ref: '#/components/schemas/EncodedObject'
+#        activityStatus:
+#          type: string
+#          enum:
+#            - OPEN
+#            - COMPLETED
+#            - TIMEOUT
+#            - FAILED
+#        timeoutType:
+#          type: string
+#          enum:
+#            - SCHEDULED_TO_START
+#            - START_TO_CLOSE
+#            - SCHEDULE_TO_CLOSE
+#            - HEARTBEAT
     TimerResult:
       type: object
       required:
@@ -758,19 +758,19 @@ components:
           enum:
             - SCHEDULED
             - FIRED
-    WaitForQueryAttributeChangeResult:
-      type: object
-      required:
-        - commandId
-        - status
-      properties:
-        commandId:
-          type: string
-        status:
-          type: string
-          enum:
-            - WAITING
-            - COMPLETED
+#    WaitForQueryAttributeChangeResult:
+#      type: object
+#      required:
+#        - commandId
+#        - status
+#      properties:
+#        commandId:
+#          type: string
+#        status:
+#          type: string
+#          enum:
+#            - WAITING
+#            - COMPLETED
     SignalResult:
       type: object
       required:
