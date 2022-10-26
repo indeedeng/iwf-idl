@@ -615,10 +615,10 @@ components:
             - ALL_COMMAND_COMPLETED
 #            - ANY_COMMAND_COMPLETED
 #            - ANY_COMMAND_CLOSED
-        activityCommands:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActivityCommand'
+#        activityCommands:
+#          type: array
+#          items:
+#            $ref: '#/components/schemas/ActivityCommand'
         timerCommands:
           type: array
           items:
