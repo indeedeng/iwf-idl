@@ -376,7 +376,7 @@ components:
     WorkflowGetSearchAttributesResponse:
       type: object
       properties:
-        queryAttributes:
+        searchAttributes:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
