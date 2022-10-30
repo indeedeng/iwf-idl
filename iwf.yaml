@@ -376,10 +376,10 @@ components:
     WorkflowGetSearchAttributesResponse:
       type: object
       properties:
-        queryAttributes:
+        searchAttributes:
           type: array
           items:
-            $ref: '#/components/schemas/KeyValue'
+            $ref: '#/components/schemas/SearchAttribute'
     WorkflowGetRequest:
       type: object
       required:
