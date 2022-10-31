@@ -50,6 +50,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/cancel:
+    post:
+      summary: "cancel a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowCancelRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/queryattributes/get:
     post:
       summary: "get workflow query attributes"
@@ -340,6 +358,17 @@ components:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
+    WorkflowCancelRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        reason:
+          type: string
     WorkflowGetQueryAttributesRequest:
       type: object
       required:
@@ -586,6 +615,10 @@ components:
           items:
             $ref: '#/components/schemas/SearchAttribute'
         upsertQueryAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        upsertStateLocalAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
