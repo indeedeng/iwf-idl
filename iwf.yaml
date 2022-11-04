@@ -563,6 +563,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        recordEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         publishToInterStateChannel:
           type: array
           items:
@@ -618,7 +622,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        upsertStateLocalAttributes:
+        recordEvents:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
