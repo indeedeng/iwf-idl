@@ -605,15 +605,6 @@ components:
       properties:
         stateDecision:
           $ref: '#/components/schemas/StateDecision'
-    StateDecision:
-      type: object
-      properties:
-#        waitForMoreCommandResults:
-#          type: boolean
-        nextStates:
-          type: array
-          items:
-            $ref: '#/components/schemas/StateMovement'
         upsertSearchAttributes:
           type: array
           items:
@@ -634,6 +625,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelPublishing'
+    StateDecision:
+      type: object
+      properties:
+#        waitForMoreCommandResults:
+#          type: boolean
+        nextStates:
+          type: array
+          items:
+            $ref: '#/components/schemas/StateMovement'
     StateMovement:
       type: object
       required:
