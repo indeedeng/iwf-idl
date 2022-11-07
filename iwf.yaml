@@ -626,6 +626,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        upsertStateLocalAttributes: # this is probably no much value but we keep it to make the APIs more consistent
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         publishToInterStateChannel:
           type: array
           items:
