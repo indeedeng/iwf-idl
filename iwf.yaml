@@ -289,14 +289,7 @@ components:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
     WorkflowStartOptions:
       type: object
-      required:
-        - workflowId
-        - workflowTimeoutSeconds
       properties:
-        workflowId:
-          type: string
-        workflowTimeoutSeconds:
-          type: integer
         workflowIDReusePolicy:
           type: string
           enum:
@@ -338,13 +331,18 @@ components:
     WorkflowStartRequest:
       type: object
       required:
+        - workflowId
         - iwfWorkerUrl
         - iwfWorkflowType
         - startStateId
-        - workflowStartOptions
+        - workflowTimeoutSeconds
       properties:
+        workflowId:
+          type: string
         iwfWorkflowType:
           type: string
+        workflowTimeoutSeconds:
+          type: integer
         iwfWorkerUrl:
           type: string
         startStateId:
