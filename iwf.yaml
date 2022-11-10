@@ -287,25 +287,6 @@ components:
           $ref: '#/components/schemas/AttributesLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
-    WorkflowStartOptions:
-      type: object
-      required:
-        - workflowId
-        - workflowTimeoutSeconds
-      properties:
-        workflowId:
-          type: string
-        workflowTimeoutSeconds:
-          type: integer
-        workflowIDReusePolicy:
-          type: string
-          enum:
-            - ALLOW_DUPLICATE_FAILED_ONLY
-            - ALLOW_DUPLICATE
-            - REJECT_DUPLICATE
-            - TERMINATE_IF_RUNNING
-        cronSchedule:
-          type: string
     AttributesLoadingPolicy:
       type: object
       properties:
@@ -338,13 +319,18 @@ components:
     WorkflowStartRequest:
       type: object
       required:
+        - workflowId
         - iwfWorkerUrl
         - iwfWorkflowType
         - startStateId
-        - workflowStartOptions
+        - workflowTimeoutSeconds
       properties:
+        workflowId:
+          type: string
         iwfWorkflowType:
           type: string
+        workflowTimeoutSeconds:
+          type: integer
         iwfWorkerUrl:
           type: string
         startStateId:
@@ -353,8 +339,6 @@ components:
           $ref: '#/components/schemas/EncodedObject'
         stateOptions:
           $ref: '#/components/schemas/WorkflowStateOptions'
-        workflowStartOptions:
-          $ref: '#/components/schemas/WorkflowStartOptions'
     WorkflowStartResponse:
       type: object
       properties:
