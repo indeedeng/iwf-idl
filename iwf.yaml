@@ -292,6 +292,7 @@ components:
       properties:
         workflowIDReusePolicy:
           type: string
+          nullable: true
           enum:
             - ALLOW_DUPLICATE_FAILED_ONLY
             - ALLOW_DUPLICATE
@@ -299,6 +300,7 @@ components:
             - TERMINATE_IF_RUNNING
         cronSchedule:
           type: string
+          nullable: true
     AttributesLoadingPolicy:
       type: object
       properties:
