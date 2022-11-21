@@ -278,6 +278,23 @@ components:
           enum:
             - KEYWORD
             - INT
+    RetryPolicy:
+      type: object
+      required:
+        - initialInterval
+      properties:
+        initialInterval:
+          type: number
+        backoffCoefficient:
+          type: number
+        maximumInterval:
+          type: number
+        maximumAttempts:
+          type: integer
+        nonRetryableErrorTypes:
+          type: array
+          items:
+            type: string
     WorkflowStateOptions:
       type: object
       properties:
@@ -299,6 +316,8 @@ components:
             - TERMINATE_IF_RUNNING
         cronSchedule:
           type: string
+        retryPolicy:
+          $ref: '#/components/schemas/RetryPolicy'
     AttributesLoadingPolicy:
       type: object
       properties:
