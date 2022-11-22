@@ -280,21 +280,22 @@ components:
             - INT
     RetryPolicy:
       type: object
-      required:
-        - initialInterval
       properties:
-        initialInterval:
+        initialInterval: # default to 1s
           type: number
-        backoffCoefficient:
+        backoffCoefficient: # default to 2
           type: number
-        maximumInterval:
+        maximumInterval: # default to 100x of initial interval
           type: number
-        maximumAttempts:
+        maximumAttempts: # default to 0, means unlimited
           type: integer
-        nonRetryableErrorTypes:
-          type: array
-          items:
-            type: string
+# TODO NOTE:
+#  1. this will need more work on server to allow customize error types for workflow results
+#  2. probably only can apply to workflow
+#        nonRetryableErrorTypes:
+#          type: array
+#          items:
+#            type: string
     WorkflowStateOptions:
       type: object
       properties:
@@ -304,6 +305,10 @@ components:
           $ref: '#/components/schemas/AttributesLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
+        startApiRetryPolicy:
+          $ref: '#/components/schemas/RetryPolicy'
+        decideApiRetryPolicy:
+          $ref: '#/components/schemas/RetryPolicy'
     WorkflowStartOptions:
       type: object
       properties:
