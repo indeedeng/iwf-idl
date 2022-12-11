@@ -411,7 +411,7 @@ components:
           type: string
           enum:
             - CANCEL # default behavior
-            - TERMINATE # this will hard terminate the workflow
+            # - TERMINATE # this will hard terminate the workflow  TODO need server to support
             # - FAIL TODO need server to support
     WorkflowGetDataObjectsRequest:
       type: object
