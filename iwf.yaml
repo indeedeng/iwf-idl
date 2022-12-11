@@ -50,14 +50,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/cancel:
+  /api/v1/workflow/stop:
     post:
-      summary: "cancel a workflow"
+      summary: "stop a workflow"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowCancelRequest'
+              $ref: '#/components/schemas/WorkflowStopRequest'
       responses:
         '200':
           description: successful operation
@@ -396,7 +396,7 @@ components:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
-    WorkflowCancelRequest:
+    WorkflowStopRequest:
       type: object
       required:
         - workflowId
@@ -407,6 +407,12 @@ components:
           type: string
         reason:
           type: string
+        stopType:
+          type: string
+          enum:
+            - CANCEL # default behavior
+            - TERMINATE # this will hard terminate the workflow
+            - FAIL
     WorkflowGetDataObjectsRequest:
       type: object
       required:
