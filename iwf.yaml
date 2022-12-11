@@ -429,7 +429,7 @@ components:
     WorkflowGetDataObjectsResponse:
       type: object
       properties:
-        keys:
+        objects:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
