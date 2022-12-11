@@ -323,10 +323,10 @@ components:
           type: string
         retryPolicy:
           $ref: '#/components/schemas/RetryPolicy'
-    AttributesLoadingPolicy:
+    PersistenceLoadingPolicy:
       type: object
       properties:
-        attributeLoadingType:
+        persistenceLoadingType:
           type: string
           enum:
             - LOAD_ALL_WITHOUT_LOCKING
