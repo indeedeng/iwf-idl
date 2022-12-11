@@ -412,7 +412,7 @@ components:
           enum:
             - CANCEL # default behavior
             - TERMINATE # this will hard terminate the workflow
-            - FAIL
+            # - FAIL TODO need server to support
     WorkflowGetDataObjectsRequest:
       type: object
       required:
@@ -542,12 +542,12 @@ components:
           enum:
             - HISTORY_EVENT_ID
             - BEGINNING
-            - EVENT_TIME
+            - HISTORY_EVENT_TIME
         historyEventId: #required for resetType of HISTORY_EVENT_ID. The eventID of any event after DecisionTaskStarted you want to reset to (this event is exclusive in a new run. The new run history will fork and continue from the previous eventID of this). It can be DecisionTaskCompleted, DecisionTaskFailed or others
           type: integer
         reason: #reason to do the reset for tracking purpose
           type: string
-        eventTime: #Earliest time of event time, required for resetType of EVENT_TIME.Supported formats are '2006-01-02T15:04:05+07:00', raw UnixNano and time range (N<duration>), where 0 < N < 1000000 and duration (full-notation/short-notation) can be second/s, minute/m, hour/h, day/d, week/w, month/M or year/y. For example, '15minute' or '15m' implies last 15 minutes, meaning that workflow will be reset to the first decision that completed in last 15 minutes
+        historyEventTime: #Earliest time of history event time, required for resetType of HISTORY_EVENT_TIME.Supported formats are '2006-01-02T15:04:05+07:00', raw UnixNano and time range (N<duration>), where 0 < N < 1000000 and duration (full-notation/short-notation) can be second/s, minute/m, hour/h, day/d, week/w, month/M or year/y. For example, '15minute' or '15m' implies last 15 minutes, meaning that workflow will be reset to the first decision that completed in last 15 minutes
           type: string
         skipSignalReapply: # whether skipping signals reapply after the reset point
           type: boolean
