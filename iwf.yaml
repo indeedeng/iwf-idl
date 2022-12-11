@@ -68,21 +68,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/queryattributes/get:
+  /api/v1/workflow/dataobjects/get:
     post:
-      summary: "get workflow query attributes"
+      summary: "get workflow data objects"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowGetQueryAttributesRequest'
+              $ref: '#/components/schemas/WorkflowGetDataObjectsRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowGetQueryAttributesResponse'
+                $ref: '#/components/schemas/WorkflowGetDataObjectsResponse'
         '400':
           description: Invalid input
           content:
@@ -300,9 +300,9 @@ components:
       type: object
       properties:
         searchAttributesLoadingPolicy:
-          $ref: '#/components/schemas/AttributesLoadingPolicy'
-        queryAttributesLoadingPolicy:
-          $ref: '#/components/schemas/AttributesLoadingPolicy'
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        dataObjectsLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
         startApiRetryPolicy:
@@ -407,7 +407,7 @@ components:
           type: string
         reason:
           type: string
-    WorkflowGetQueryAttributesRequest:
+    WorkflowGetDataObjectsRequest:
       type: object
       required:
         - workflowId
@@ -416,14 +416,14 @@ components:
           type: string
         workflowRunId:
           type: string
-        attributeKeys: # return all attributes if this is empty
+        keys: # return all objects if this is empty
           type: array
           items:
             type: string
-    WorkflowGetQueryAttributesResponse:
+    WorkflowGetDataObjectsResponse:
       type: object
       properties:
-        queryAttributes:
+        keys:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -436,7 +436,7 @@ components:
           type: string
         workflowRunId:
           type: string
-        attributeKeys: # return all attributes if this is empty
+        keys: # return all search attributes if this is empty
           type: array
           items:
             $ref: '#/components/schemas/SearchAttributeKeyAndType'
@@ -580,7 +580,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
-        queryAttributes:
+        dataObjects:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -591,13 +591,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
-        upsertQueryAttributes:
+        upsertDataObjects:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
-        upsertStateLocalAttributes:
+        upsertStateLocalObjects:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -628,11 +628,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
-        queryAttributes:
+        DataObjects:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        stateLocalAttributes:
+        stateLocalObjects:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -647,7 +647,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
-        upsertQueryAttributes:
+        upsertDataObjects:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -655,7 +655,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        upsertStateLocalAttributes: # this is probably no much value but we keep it to make the APIs more consistent
+        upsertStateLocalObjects: # this is probably no much value but we keep it to make the APIs more consistent
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -710,10 +710,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelCommand'
-#        waitForQueryAttributeChangeCommands:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/WaitForQueryAttributeChangeCommand'
     CommandResults:
       type: object
       properties:
@@ -733,10 +729,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-#        waitForQueryAttributeChangeResults:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/WaitForQueryAttributeChangeResult'
 #    ActivityCommand:
 #      required:
 #        - commandId
@@ -782,16 +774,6 @@ components:
           type: string
         channelName:
           type: string
-#    WaitForQueryAttributeChangeCommand:
-#      type: object
-#      required:
-#        - commandId
-#        - attributeKey
-#      properties:
-#        commandId:
-#          type: string
-#        attributeKey:
-#          type: string
 #    ActivityOptions:
 #      type: object
 #      properties:
@@ -837,19 +819,6 @@ components:
           enum:
             - SCHEDULED
             - FIRED
-#    WaitForQueryAttributeChangeResult:
-#      type: object
-#      required:
-#        - commandId
-#        - status
-#      properties:
-#        commandId:
-#          type: string
-#        status:
-#          type: string
-#          enum:
-#            - WAITING
-#            - COMPLETED
     SignalResult:
       type: object
       required:
