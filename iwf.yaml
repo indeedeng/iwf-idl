@@ -594,7 +594,7 @@ components:
             $ref: '#/components/schemas/KeyValue'
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
-        upsertStateLocalObjects:
+        upsertStateLocals:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -629,7 +629,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        stateLocalObjects:
+        stateLocals :
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -652,7 +652,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        upsertStateLocalObjects: # this is probably no much value but we keep it to make the APIs more consistent
+        upsertStateLocals: # this is probably no much value but we keep it to make the APIs more consistent
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
