@@ -282,11 +282,11 @@ components:
       type: object
       properties:
         initialInterval: # default to 1s
-          type: number
+          type: integer
         backoffCoefficient: # default to 2
           type: number
         maximumInterval: # default to 100x of initial interval
-          type: number
+          type: integer
         maximumAttempts: # default to 0, means unlimited
           type: integer
 # TODO NOTE:
