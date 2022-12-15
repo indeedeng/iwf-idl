@@ -305,6 +305,10 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
+        startApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
+          type: integer
+        decideApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
+          type: integer
         startApiRetryPolicy:
           $ref: '#/components/schemas/RetryPolicy'
         decideApiRetryPolicy:
