@@ -1,2 +1,2 @@
 # iwf-idl
-interface definition between iwf SDKs and iwf server
+interface definition between iWF SDKs and [iWF server](https://github.com/indeedeng/iwf)
