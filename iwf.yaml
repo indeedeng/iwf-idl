@@ -686,9 +686,9 @@ components:
       properties:
         stateId:
           type: string
-        nextStateInput:
+        stateInput:
           $ref: '#/components/schemas/EncodedObject'
-        nextStateOptions:
+        stateOptions:
           $ref: '#/components/schemas/WorkflowStateOptions'
     CommandRequest:
       type: object
