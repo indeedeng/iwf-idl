@@ -334,8 +334,8 @@ components:
           type: string
           enum:
             - LOAD_ALL_WITHOUT_LOCKING
+            - LOAD_PARTIAL_WITHOUT_LOCKING
 #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
-#            - LOAD_PARTIAL_WITHOUT_LOCKING
 #            - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
         partialLoadingKeys:
           type: array
