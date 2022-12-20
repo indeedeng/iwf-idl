@@ -838,16 +838,11 @@ components:
         commandId:
           type: string
         signalRequestStatus:
-          $ref: '#/components/schemas/SignalRequestStatus'
+          $ref: '#/components/schemas/ChannelRequestStatus'
         signalChannelName:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
-    SignalRequestStatus:
-      type: string
-      enum:
-        - WAITING
-        - RECEIVED
     InterStateChannelResult:
       type: object
       required:
@@ -858,12 +853,12 @@ components:
         commandId:
           type: string
         requestStatus:
-          $ref: '#/components/schemas/InterStateChannelRequestStatus'
+          $ref: '#/components/schemas/ChannelRequestStatus'
         channelName:
           type: string
         value:
           $ref: '#/components/schemas/EncodedObject'
-    InterStateChannelRequestStatus:
+    ChannelRequestStatus:
       type: string
       enum:
         - WAITING
