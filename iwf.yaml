@@ -259,10 +259,12 @@ components:
         key:
           type: string
         valueType:
-          type: string
-          enum:
-            - KEYWORD
-            - INT
+          $ref: '#/components/schemas/SearchAttributeValueType'
+    SearchAttributeValueType:
+      type: string
+      enum:
+        - KEYWORD
+        - INT
     SearchAttribute:
       type: object
       properties:
@@ -274,10 +276,7 @@ components:
           type: integer
           format: int64
         valueType:
-          type: string
-          enum:
-            - KEYWORD
-            - INT
+          $ref: '#/components/schemas/SearchAttributeValueType'
     RetryPolicy:
       type: object
       properties:
@@ -317,38 +316,43 @@ components:
       type: object
       properties:
         workflowIDReusePolicy:
-          type: string
-          enum:
-            - ALLOW_DUPLICATE_FAILED_ONLY
-            - ALLOW_DUPLICATE
-            - REJECT_DUPLICATE
-            - TERMINATE_IF_RUNNING
+          $ref: '#/components/schemas/WorkflowIDReusePolicy'
         cronSchedule:
           type: string
         retryPolicy:
           $ref: '#/components/schemas/RetryPolicy'
+    WorkflowIDReusePolicy:
+      type: string
+      enum:
+        - ALLOW_DUPLICATE_FAILED_ONLY
+        - ALLOW_DUPLICATE
+        - REJECT_DUPLICATE
+        - TERMINATE_IF_RUNNING
     PersistenceLoadingPolicy:
       type: object
       properties:
         persistenceLoadingType:
-          type: string
-          enum:
-            - LOAD_ALL_WITHOUT_LOCKING
-            - LOAD_PARTIAL_WITHOUT_LOCKING
-#            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
-#            - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
+          $ref: '#/components/schemas/PersistenceLoadingType'
         partialLoadingKeys:
           type: array
           items:
             type: string
+    PersistenceLoadingType:
+      type: string
+      enum:
+        - LOAD_ALL_WITHOUT_LOCKING
+        - LOAD_PARTIAL_WITHOUT_LOCKING
+    #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
+    #            - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
     CommandCarryOverPolicy:
       type: object
       properties:
         commandCarryOverType:
-          type: string
-          enum:
-            - NONE
-            #- ALL_UNFINISHED
+          $ref: '#/components/schemas/CommandCarryOverType'
+    CommandCarryOverType:
+      type: string
+      enum:
+        - NONE
     ErrorResponse:
       type: object
       properties:
@@ -412,11 +416,13 @@ components:
         reason:
           type: string
         stopType:
-          type: string
-          enum:
-            - CANCEL # default behavior
-            # - TERMINATE # this will hard terminate the workflow  TODO need server to support
-            # - FAIL TODO need server to support
+          $ref: '#/components/schemas/WorkflowStopType'
+    WorkflowStopType:
+      type: string
+      enum:
+        - CANCEL # default behavior
+        # - TERMINATE # this will hard terminate the workflow  TODO need server to support
+        # - FAIL TODO need server to support
     WorkflowGetDataObjectsRequest:
       type: object
       required:
@@ -479,19 +485,21 @@ components:
         workflowRunId:
           type: string
         workflowStatus:
-          type: string
-          enum:
-            - RUNNING
-            - COMPLETED
-            - FAILED
-            - TIMEOUT
-            - TERMINATED
-            - CANCELED
-            - CONTINUED_AS_NEW
+          $ref: '#/components/schemas/WorkflowStatus'
         results: # result will be return if needsResults is true in request, and workflow is completed
           type: array
           items:
             $ref: '#/components/schemas/StateCompletionOutput'
+    WorkflowStatus:
+      type: string
+      enum:
+        - RUNNING
+        - COMPLETED
+        - FAILED
+        - TIMEOUT
+        - TERMINATED
+        - CANCELED
+        - CONTINUED_AS_NEW
     StateCompletionOutput:
       type: object
       required:
@@ -542,13 +550,7 @@ components:
         workflowRunId:
           type: string
         resetType:
-          type: string
-          enum:
-            - HISTORY_EVENT_ID
-            - BEGINNING
-            - HISTORY_EVENT_TIME
-            - STATE_ID
-            - STATE_EXECUTION_ID
+          $ref: '#/components/schemas/WorkflowResetType'
         historyEventId: #required for resetType of HISTORY_EVENT_ID. The eventID of any event after DecisionTaskStarted you want to reset to (this event is exclusive in a new run. The new run history will fork and continue from the previous eventID of this). It can be DecisionTaskCompleted, DecisionTaskFailed or others
           type: integer
         reason: #reason to do the reset for tracking purpose
@@ -561,6 +563,14 @@ components:
           type: string
         skipSignalReapply: # whether skipping signals reapply after the reset point
           type: boolean
+    WorkflowResetType:
+      type: string
+      enum:
+        - HISTORY_EVENT_ID
+        - BEGINNING
+        - HISTORY_EVENT_TIME
+        - STATE_ID
+        - STATE_EXECUTION_ID
     WorkflowResetResponse:
       type: object
       required:
@@ -696,11 +706,7 @@ components:
         - deciderTriggerType
       properties:
         deciderTriggerType:
-          type: string
-          enum:
-            - ALL_COMMAND_COMPLETED
-            - ANY_COMMAND_COMPLETED
-#            - ANY_COMMAND_CLOSED
+          $ref: '#/components/schemas/DeciderTriggerType'
 #        activityCommands:
 #          type: array
 #          items:
@@ -717,6 +723,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelCommand'
+    DeciderTriggerType:
+      type: string
+      enum:
+        - ALL_COMMAND_COMPLETED
+        - ANY_COMMAND_COMPLETED
+#            - ANY_COMMAND_CLOSED
     CommandResults:
       type: object
       properties:
@@ -800,19 +812,7 @@ components:
 #        output:
 #          $ref: '#/components/schemas/EncodedObject'
 #        activityStatus:
-#          type: string
-#          enum:
-#            - OPEN
-#            - COMPLETED
-#            - TIMEOUT
-#            - FAILED
 #        timeoutType:
-#          type: string
-#          enum:
-#            - SCHEDULED_TO_START
-#            - START_TO_CLOSE
-#            - SCHEDULE_TO_CLOSE
-#            - HEARTBEAT
     TimerResult:
       type: object
       required:
@@ -822,10 +822,12 @@ components:
         commandId:
           type: string
         timerStatus:
-          type: string
-          enum:
-            - SCHEDULED
-            - FIRED
+          $ref: '#/components/schemas/TimerStatus'
+    TimerStatus:
+      type: string
+      enum:
+        - SCHEDULED
+        - FIRED
     SignalResult:
       type: object
       required:
@@ -836,14 +838,16 @@ components:
         commandId:
           type: string
         signalRequestStatus:
-          type: string
-          enum:
-            - WAITING
-            - RECEIVED
+          $ref: '#/components/schemas/SignalRequestStatus'
         signalChannelName:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
+    SignalRequestStatus:
+      type: string
+      enum:
+        - WAITING
+        - RECEIVED
     InterStateChannelResult:
       type: object
       required:
@@ -854,14 +858,16 @@ components:
         commandId:
           type: string
         requestStatus:
-          type: string
-          enum:
-            - WAITING
-            - RECEIVED
+          $ref: '#/components/schemas/InterStateChannelRequestStatus'
         channelName:
           type: string
         value:
           $ref: '#/components/schemas/EncodedObject'
+    InterStateChannelRequestStatus:
+      type: string
+      enum:
+        - WAITING
+        - RECEIVED
     InterStateChannelPublishing:
       type: object
       required:
