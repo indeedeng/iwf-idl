@@ -536,6 +536,8 @@ components:
         pageSize:
           type: integer
           format: int32
+        nextPageToken:
+          type: string
     WorkflowSearchResponse:
       type: object
       properties:
@@ -543,6 +545,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/WorkflowSearchResponseEntry'
+        nextPageToken:
+          type: string
     WorkflowSearchResponseEntry:
       type: object
       required:
