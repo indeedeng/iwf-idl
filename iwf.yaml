@@ -335,6 +335,10 @@ components:
           type: string
         retryPolicy:
           $ref: '#/components/schemas/RetryPolicy'
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttribute'
     WorkflowIDReusePolicy:
       type: string
       enum:
