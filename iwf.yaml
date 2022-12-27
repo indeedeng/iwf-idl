@@ -260,21 +260,35 @@ components:
           type: string
         valueType:
           $ref: '#/components/schemas/SearchAttributeValueType'
-    SearchAttributeValueType:
+    SearchAttributeValueType: # see https://docs.temporal.io/concepts/what-is-a-search-attribute#types
       type: string
       enum:
         - KEYWORD
+        - TEXT
+        - DATETIME
         - INT
+        - DOUBLE
+        - BOOL
+        - KEYWORD_ARRAY # NOTE: for Cadence/Temporal keyword array is registered in the same type as KEYWORD
     SearchAttribute:
       type: object
       properties:
         key:
           type: string
-        stringValue: # for any value than can be stored as string: keyword, text, wildcard
+        stringValue: # It's used for any value than can be stored as string: keyword, text, and DATETIME
           type: string
-        integerValue:
+        integerValue: # It's used for INT type
           type: integer
           format: int64
+        doubleValue: # For DOUBLE type
+          type: number
+          format: double
+        boolValue: # for BOOL type
+          type: boolean
+        stringArrayValue: # for any type than can be stored as string array: KEYWORD, TEXT, and DATETIME
+          type: array
+          items:
+            type: string
         valueType:
           $ref: '#/components/schemas/SearchAttributeValueType'
     RetryPolicy:
@@ -522,6 +536,8 @@ components:
         pageSize:
           type: integer
           format: int32
+        nextPageToken:
+          type: string
     WorkflowSearchResponse:
       type: object
       properties:
@@ -529,6 +545,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/WorkflowSearchResponseEntry'
+        nextPageToken:
+          type: string
     WorkflowSearchResponseEntry:
       type: object
       required:
