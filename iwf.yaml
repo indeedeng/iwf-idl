@@ -269,34 +269,26 @@ components:
         - INT
         - DOUBLE
         - BOOL
+        - KEYWORD_ARRAY # NOTE: for Cadence/Temporal keyword array is registered in the same type as KEYWORD
     SearchAttribute:
       type: object
       properties:
         key:
           type: string
-        stringValue: # Deprecated, use stringArrayValue instead. It's used for KEYWORD only in version <=1.0. for any value than can be stored as string: keyword, text, and DATETIME
+        stringValue: # It's used for any value than can be stored as string: keyword, text, and DATETIME
           type: string
-        integerValue: # Deprecated, use integerArrayValue instead. It's used for INT only in version <=1.0.
+        integerValue: # It's used for INT type
           type: integer
           format: int64
-        stringArrayValue: # for any type than can be stored as string: KEYWORD, TEXT, and DATETIME
+        doubleValue: # For DOUBLE type
+          type: number
+          format: double
+        boolValue: # for BOOL type
+          type: boolean
+        stringArrayValue: # for any type than can be stored as string array: KEYWORD, TEXT, and DATETIME
           type: array
           items:
             type: string
-        integerArrayValue: # for INT type
-          type: array
-          items:
-            type: integer
-            format: int64
-        doubleArrayValue: # for DOUBLE type
-          type: array
-          items:
-            type: number
-            format: double
-        boolArrayValue: # for BOOL type
-          type: array
-          items:
-            type: boolean
         valueType:
           $ref: '#/components/schemas/SearchAttributeValueType'
     RetryPolicy:
