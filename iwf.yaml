@@ -194,6 +194,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/timer/skip:
+    post:
+      summary: "skip the timer of a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowSkipTimerRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   # workflowState APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
@@ -623,6 +641,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+    WorkflowSkipTimerRequest:
+      type: object
+      required:
+        - workflowId
+        - workflowStateExecutionId
+      properties:
+        workflowId:
+          type: string
+        workflowStateExecutionId:
+          type: string
+        timerCommandId: # NOTE: either timerCommandId or timerCommandIndex must be provided
+          type: string
+        timerCommandIndex: # NOTE: either timerCommandId or timerCommandIndex must be provided
+          type: integer
     WorkflowStateStartResponse:
       type: object
       properties:
