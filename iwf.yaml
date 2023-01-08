@@ -649,6 +649,8 @@ components:
       properties:
         workflowId:
           type: string
+        workflowRunId:
+          type: string
         workflowStateExecutionId:
           type: string
         timerCommandId: # NOTE: either timerCommandId or timerCommandIndex must be provided
