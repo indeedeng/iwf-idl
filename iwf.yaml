@@ -399,9 +399,9 @@ components:
     ErrorSubStatus:
       type: string
       enum:
-        - UNCATEGORIZED_SUBERR
-        - WORKFLOW_ALREADY_STARTED_SUBERR
-        - WORKFLOW_NOT_EXISTS_SUBERR
+        - UNCATEGORIZED_SUB_STATUS
+        - WORKFLOW_ALREADY_STARTED_SUB_STATUS
+        - WORKFLOW_NOT_EXISTS_SUB_STATUS
     WorkflowStartRequest:
       type: object
       required:
