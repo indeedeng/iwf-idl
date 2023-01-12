@@ -394,8 +394,14 @@ components:
       properties:
         detail: 
           type: string
-        subStatus: 
-          type: string  
+        subStatus:
+          $ref: '#/components/schemas/ErrorSubStatus'
+    ErrorSubStatus:
+      type: string
+      enum:
+        - ERR_UNCATEGORIZED
+        - ERR_WORKFLOW_ALREADY_STARTED
+        - ERR_WORKFLOW_NOT_EXISTS
     WorkflowStartRequest:
       type: object
       required:
