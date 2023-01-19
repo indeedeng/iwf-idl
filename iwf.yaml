@@ -962,4 +962,9 @@ components:
           type: integer
           format: int64
         stateExecutionId:
-          type: string          
+          type: string
+        firstAttemptTimestamp: # it's from ScheduledTimestamp of Cadence/Temporal activity.GetInfo
+          type: integer
+          format: int64
+        attempt: # it's from Attempt of Cadence/Temporal activity.GetInfo
+          type: integer
