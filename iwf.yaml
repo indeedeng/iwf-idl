@@ -533,9 +533,15 @@ components:
           items:
             $ref: '#/components/schemas/StateCompletionOutput'
         errorType:
-          type: string
+          $ref: '#/components/schemas/WorkflowErrorType'
         errorMessage:
           type: string
+    WorkflowErrorType:
+      type: string
+      enum:
+        - STATE_DECISION_FAILING_WORKFLOW_ERROR_TYPE
+        - INVALID_USER_WORKFLOW_CODE_ERROR_TYPE
+        - SERVER_INTERNAL_ERROR_TYPE
     WorkflowStatus:
       type: string
       enum:
