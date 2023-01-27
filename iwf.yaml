@@ -532,6 +532,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StateCompletionOutput'
+        errorType:
+          type: string
+        errorMessage:
+          type: string
     WorkflowStatus:
       type: string
       enum:
