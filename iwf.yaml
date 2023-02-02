@@ -316,6 +316,7 @@ components:
           type: integer
         backoffCoefficient: # default to 2
           type: number
+          format: double
         maximumIntervalSeconds: # default to 100x of initial interval
           type: integer
         maximumAttempts: # default to 0, means unlimited
