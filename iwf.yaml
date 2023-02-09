@@ -833,6 +833,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
+        stateStartApiSucceeded:
+          type: boolean
 #    ActivityCommand:
 #      required:
 #        - commandId
