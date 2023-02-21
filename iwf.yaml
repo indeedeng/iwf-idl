@@ -321,6 +321,11 @@ components:
           type: integer
         maximumAttempts: # default to 0, means unlimited
           type: integer
+    StartApiFailurePolicy:
+      type: string
+      enum:
+        FAIL_WORKFLOW_ON_START_API_FAILURE
+        PROCEED_TO_DECIDE_ON_START_API_FAILURE # next states derived from decide() API
 # TODO NOTE:
 #  1. this will need more work on server to allow customize error types for workflow results
 #  2. probably only can apply to workflow
@@ -345,6 +350,8 @@ components:
           $ref: '#/components/schemas/RetryPolicy'
         decideApiRetryPolicy:
           $ref: '#/components/schemas/RetryPolicy'
+        startApiFailurePolicy:
+          $ref: '#/components/schemas/StartApiFailurePolicy'
     WorkflowStartOptions:
       type: object
       properties:
