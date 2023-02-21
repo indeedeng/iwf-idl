@@ -321,7 +321,7 @@ components:
           type: integer
         maximumAttempts: # default to 0, means unlimited
           type: integer
-    ErrorHandlingPolicy:
+    StartApiFailurePolicy:
       type: string
       enum:
         FAIL_WORKFLOW_ON_ERROR
@@ -350,8 +350,8 @@ components:
           $ref: '#/components/schemas/RetryPolicy'
         decideApiRetryPolicy:
           $ref: '#/components/schemas/RetryPolicy'
-        errorHandlingPolicy:
-          $ref: '#/components/schemas/ErrorHandlingPolicy'
+        startApiFailurePolicy:
+          $ref: '#/components/schemas/StartApiFailurePolicy'
     WorkflowStartOptions:
       type: object
       properties:
