@@ -321,18 +321,25 @@ components:
           type: integer
         maximumAttempts: # default to 0, means unlimited
           type: integer
+        maximumAttemptsDurationSeconds: # the end to end duration of all attempts
+          type: integer
+    WorkflowRetryPolicy:
+      type: object
+      properties:
+        initialIntervalSeconds: # default to 1s
+          type: integer
+        backoffCoefficient: # default to 2
+          type: number
+          format: float
+        maximumIntervalSeconds: # default to 100x of initial interval
+          type: integer
+        maximumAttempts: # default to 0, means unlimited
+          type: integer
     StartApiFailurePolicy:
       type: string
       enum:
         - FAIL_WORKFLOW_ON_START_API_FAILURE
         - PROCEED_TO_DECIDE_ON_START_API_FAILURE # next states derived from decide() API
-# TODO NOTE:
-#  1. this will need more work on server to allow customize error types for workflow results
-#  2. probably only can apply to workflow
-#        nonRetryableErrorTypes:
-#          type: array
-#          items:
-#            type: string
     WorkflowStateOptions:
       type: object
       properties:
@@ -360,7 +367,7 @@ components:
         cronSchedule:
           type: string
         retryPolicy:
-          $ref: '#/components/schemas/RetryPolicy'
+          $ref: '#/components/schemas/WorkflowRetryPolicy'
         searchAttributes:
           type: array
           items:
