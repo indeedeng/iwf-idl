@@ -493,6 +493,8 @@ components:
           type: array
           items:
             type: string
+        includeLargeDataObjects: # this indicates that some dataObjects are not stored in Memo thus need to be loaded from query handler. This only for Temporal as Cadence doesn't have updatable memo as optimization for DataObjects
+          type: boolean
     WorkflowGetDataObjectsResponse:
       type: object
       properties:
@@ -700,6 +702,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        keysOfLargeDataObjects: # this will tell server to not use Temporal memo to store the dataObjects (only for Temporal, it doesn't matter for Cadence as Cadence doesn't have updatable Memo optimization)
+          type: array
+          items:
+            type: string
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
         upsertStateLocals:
@@ -756,6 +762,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        keysOfLargeDataObjects: # this will tell server to not use Temporal memo to store the dataObjects (only for Temporal, it doesn't matter for Cadence as Cadence doesn't have updatable memo optimization)
+          type: array
+          items:
+            type: string
         recordEvents:
           type: array
           items:
