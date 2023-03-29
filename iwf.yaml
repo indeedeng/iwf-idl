@@ -372,6 +372,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
+        config:
+          $ref: '#/components/schemas/WorkflowConfig'
     WorkflowIDReusePolicy:
       type: string
       enum:
@@ -674,8 +676,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        config:
-          $ref: '#/components/schemas/WorkflowConfig'
     WorkflowSkipTimerRequest:
       type: object
       required:
