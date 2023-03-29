@@ -674,6 +674,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        config:
+          $ref: '#/components/schemas/WorkflowConfig'
     WorkflowSkipTimerRequest:
       type: object
       required:
@@ -974,6 +976,15 @@ components:
           type: string
         value:
           $ref: '#/components/schemas/EncodedObject'
+    WorkflowConfig:
+      type: object
+      properties:
+        disableSystemSearchAttribute:
+          type: boolean
+        continueAsNewThresholdExecutedStateExecution:
+          type: integer
+        continueAsNewThresholdSignalsReceived:
+          type: integer
     Context:
       type: object
       required:
