@@ -212,6 +212,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/internal/dump:
+    post:
+      summary: "dump internal info of a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowDumpRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowDumpResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   # workflowState APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
@@ -653,6 +674,35 @@ components:
       properties:
         workflowRunId:
           type: string
+    WorkflowDumpRequest:
+      type: object
+      required:
+        - workflowId
+        - workflowRunId
+        - pageSizeInBytes
+        - pageNum
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        pageSizeInBytes:
+          type: integer
+        pageNum:
+          type: integer
+    WorkflowDumpResponse:
+      type: object
+      required:
+        - checksum
+        - totalPages
+        - jsonData
+      properties:
+        checksum:
+          type: string # caller should start over if the checksum is not matched anymore
+        totalPages:
+          type: integer
+        jsonData:
+          type: string # serialized data of service.DumpAllInternalResponse model of iwf repo
     WorkflowStateStartRequest:
       type: object
       required:
