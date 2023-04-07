@@ -393,7 +393,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
-        config:
+        workflowConfigOverride:
           $ref: '#/components/schemas/WorkflowConfig'
     WorkflowIDReusePolicy:
       type: string
@@ -1031,9 +1031,7 @@ components:
       properties:
         disableSystemSearchAttribute:
           type: boolean
-        continueAsNewThresholdExecutedStateExecution:
-          type: integer
-        continueAsNewThresholdSignalsReceived:
+        continueAsNewThreshold:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
