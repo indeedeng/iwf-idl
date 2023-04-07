@@ -212,6 +212,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/config/update:
+    post:
+      summary: "update the config of a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowConfigUpdateRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/internal/dump:
     post:
       summary: "dump internal info of a workflow"
@@ -742,6 +760,18 @@ components:
           type: string
         timerCommandIndex: # NOTE: either timerCommandId or timerCommandIndex must be provided
           type: integer
+    WorkflowConfigUpdateRequest:
+      type: object
+      required:
+        - workflowId
+        - workflowConfig
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        workflowConfig:
+          $ref: '#/components/schemas/WorkflowConfig'
     WorkflowStateStartResponse:
       type: object
       properties:
