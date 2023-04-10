@@ -398,6 +398,8 @@ components:
           $ref: '#/components/schemas/RetryPolicy'
         startApiFailurePolicy:
           $ref: '#/components/schemas/StartApiFailurePolicy'
+        skipStartApi:
+          type: boolean
     WorkflowStartOptions:
       type: object
       properties:
