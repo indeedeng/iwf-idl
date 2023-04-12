@@ -254,19 +254,19 @@ paths:
   # workflowState APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
-      summary: "for invoking WorkflowState.start API"
+      summary: "for invoking WorkflowState.waitUntil API"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowStateStartRequest'
+              $ref: '#/components/schemas/WorkflowStateWaitUntilRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowStateStartResponse'
+                $ref: '#/components/schemas/WorkflowStateWaitUntilResponse'
         '400':
           description: Invalid input
           content:
@@ -275,25 +275,25 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflowState/decide:
     post:
-      summary: "for invoking WorkflowState.decide API"
+      summary: "for invoking WorkflowState.execute API"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowStateDecideRequest'
+              $ref: '#/components/schemas/WorkflowStateExecuteRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowStateDecideResponse'
+                $ref: '#/components/schemas/WorkflowStateExecuteResponse'
         '400':
           description: Invalid input
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'                
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     KeyValue:
@@ -374,11 +374,6 @@ components:
           type: integer
         maximumAttempts: # default to 0, means unlimited
           type: integer
-    StartApiFailurePolicy:
-      type: string
-      enum:
-        - FAIL_WORKFLOW_ON_START_API_FAILURE
-        - PROCEED_TO_DECIDE_ON_START_API_FAILURE # next states derived from decide() API
     WaitUntilApiFailurePolicy:
       type: string
       enum:
@@ -393,19 +388,6 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
-        startApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
-          type: integer
-        decideApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
-          type: integer
-        startApiRetryPolicy:
-          $ref: '#/components/schemas/RetryPolicy'
-        decideApiRetryPolicy:
-          $ref: '#/components/schemas/RetryPolicy'
-        startApiFailurePolicy:
-          $ref: '#/components/schemas/StartApiFailurePolicy'
-        skipStartApi:
-        # all below are for compatibility
-          type: boolean
         waitUntilApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
           type: integer
         executeApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
@@ -468,7 +450,7 @@ components:
     ErrorResponse:
       type: object
       properties:
-        detail: 
+        detail:
           type: string
         subStatus:
           $ref: '#/components/schemas/ErrorSubStatus'
@@ -741,7 +723,7 @@ components:
           type: integer
         jsonData:
           type: string # serialized data of service.DumpAllInternalResponse model of iwf repo
-    WorkflowStateStartRequest:
+    WorkflowStateWaitUntilRequest:
       type: object
       required:
         - context
@@ -792,7 +774,7 @@ components:
           type: string
         workflowConfig:
           $ref: '#/components/schemas/WorkflowConfig'
-    WorkflowStateStartResponse:
+    WorkflowStateWaitUntilResponse:
       type: object
       properties:
         upsertSearchAttributes:
@@ -817,7 +799,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelPublishing'
-    WorkflowStateDecideRequest:
+    WorkflowStateExecuteRequest:
       type: object
       required:
         - context
@@ -846,7 +828,7 @@ components:
             $ref: '#/components/schemas/KeyValue'
         commandResults:
           $ref: '#/components/schemas/CommandResults'
-    WorkflowStateDecideResponse:
+    WorkflowStateExecuteResponse:
       type: object
       properties:
         stateDecision:
@@ -892,10 +874,8 @@ components:
     CommandRequest:
       type: object
       required:
-        - deciderTriggerType
+        - commandWaitingType
       properties:
-        deciderTriggerType:
-          $ref: '#/components/schemas/DeciderTriggerType'
         commandWaitingType:
           $ref: '#/components/schemas/CommandWaitingType'
         timerCommands:
@@ -914,12 +894,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CommandCombination'
-    DeciderTriggerType:
-      type: string
-      enum:
-        - ALL_COMMAND_COMPLETED
-        - ANY_COMMAND_COMPLETED
-        - ANY_COMMAND_COMBINATION_COMPLETED # this allows specifying combination using commandIds, all commandIds cannot be emptied in order to use this DeciderTriggerType
     CommandWaitingType:
       type: string
       enum:
@@ -948,7 +922,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-        stateStartApiSucceeded:
+        stateStartApiSucceeded: #TODO change this one in the future to waitUntilSucceeded
           type: boolean
     TimerCommand:
       type: object
