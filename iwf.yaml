@@ -874,8 +874,6 @@ components:
     StateDecision:
       type: object
       properties:
-#        waitForMoreCommandResults:
-#          type: boolean
         nextStates:
           type: array
           items:
@@ -938,10 +936,6 @@ components:
     CommandResults:
       type: object
       properties:
-#        activityResults:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/ActivityResult'
         signalResults:
           type: array
           items:
@@ -956,20 +950,6 @@ components:
             $ref: '#/components/schemas/TimerResult'
         stateStartApiSucceeded:
           type: boolean
-#    ActivityCommand:
-#      required:
-#        - commandId
-#        - activityType
-#      type: object
-#      properties:
-#        commandId:
-#          type: string
-#        activityType:
-#          type: string
-#        input:
-#          $ref: '#/components/schemas/EncodedObject'
-#        activityOptions:
-#          $ref: '#/components/schemas/ActivityOptions'
     TimerCommand:
       type: object
       required:
@@ -1001,26 +981,6 @@ components:
           type: string
         channelName:
           type: string
-#    ActivityOptions:
-#      type: object
-#      properties:
-#        startToCloseTimeoutSeconds:
-#          type: integer
-#    ActivityResult:
-#      type: object
-#      required:
-#        - commandId
-#        - activityType
-#        - activityStatus
-#      properties:
-#        commandId:
-#          type: string
-#        activityType:
-#          type: string
-#        output:
-#          $ref: '#/components/schemas/EncodedObject'
-#        activityStatus:
-#        timeoutType:
     TimerResult:
       type: object
       required:
