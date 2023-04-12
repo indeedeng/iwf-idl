@@ -398,7 +398,7 @@ components:
           $ref: '#/components/schemas/RetryPolicy'
         waitUntilApiFailurePolicy:
           $ref: '#/components/schemas/WaitUntilApiFailurePolicy'
-        skipWaitUntilApi:
+        skipWaitUntil:
           type: boolean
     WorkflowStartOptions:
       type: object
@@ -922,7 +922,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-        waitUntilApiSucceeded:
+        stateStartApiSucceeded: #TODO change this one in the future to waitUntilSucceeded
           type: boolean
     TimerCommand:
       type: object

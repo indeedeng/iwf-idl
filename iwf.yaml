@@ -379,6 +379,11 @@ components:
       enum:
         - FAIL_WORKFLOW_ON_START_API_FAILURE
         - PROCEED_TO_DECIDE_ON_START_API_FAILURE # next states derived from decide() API
+    WaitUntilApiFailurePolicy:
+      type: string
+      enum:
+        - FAIL_WORKFLOW_ON_FAILURE
+        - PROCEED_ON_FAILURE # next states derived from execute() API
     WorkflowStateOptions:
       type: object
       properties:
@@ -399,6 +404,19 @@ components:
         startApiFailurePolicy:
           $ref: '#/components/schemas/StartApiFailurePolicy'
         skipStartApi:
+        # all below are for compatibility
+          type: boolean
+        waitUntilApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
+          type: integer
+        executeApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
+          type: integer
+        waitUntilApiRetryPolicy:
+          $ref: '#/components/schemas/RetryPolicy'
+        executeApiRetryPolicy:
+          $ref: '#/components/schemas/RetryPolicy'
+        waitUntilApiFailurePolicy:
+          $ref: '#/components/schemas/WaitUntilApiFailurePolicy'
+        skipWaitUntil:
           type: boolean
     WorkflowStartOptions:
       type: object
@@ -880,10 +898,8 @@ components:
       properties:
         deciderTriggerType:
           $ref: '#/components/schemas/DeciderTriggerType'
-#        activityCommands:
-#          type: array
-#          items:
-#            $ref: '#/components/schemas/ActivityCommand'
+        commandWaitingType:
+          $ref: '#/components/schemas/CommandWaitingType'
         timerCommands:
           type: array
           items:
@@ -906,6 +922,12 @@ components:
         - ALL_COMMAND_COMPLETED
         - ANY_COMMAND_COMPLETED
         - ANY_COMMAND_COMBINATION_COMPLETED # this allows specifying combination using commandIds, all commandIds cannot be emptied in order to use this DeciderTriggerType
+    CommandWaitingType:
+      type: string
+      enum:
+        - ALL_COMMAND_COMPLETED
+        - ANY_COMMAND_COMPLETED
+        - ANY_COMMAND_COMBINATION_COMPLETED # this allows specifying combination using commandIds, all commandIds cannot be emptied in order to use this CommandWaitingType
     CommandCombination:
       type: object
       properties:
