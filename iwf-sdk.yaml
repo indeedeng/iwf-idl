@@ -897,9 +897,9 @@ components:
     CommandWaitingType:
       type: string
       enum:
-        - ALL_COMMAND_COMPLETED
-        - ANY_COMMAND_COMPLETED
-        - ANY_COMMAND_COMBINATION_COMPLETED # this allows specifying combination using commandIds, all commandIds cannot be emptied in order to use this CommandWaitingType
+        - ALL_COMPLETED
+        - ANY_COMPLETED
+        - ANY_COMBINATION_COMPLETED # this allows specifying combination using commandIds, all commandIds cannot be emptied in order to use this CommandWaitingType
     CommandCombination:
       type: object
       properties:
