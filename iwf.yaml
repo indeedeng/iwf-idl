@@ -418,6 +418,8 @@ components:
           $ref: '#/components/schemas/WaitUntilApiFailurePolicy'
         skipWaitUntil:
           type: boolean
+        dataAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
     WorkflowStartOptions:
       type: object
       properties:

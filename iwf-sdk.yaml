@@ -384,7 +384,7 @@ components:
       properties:
         searchAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
-        dataObjectsLoadingPolicy:
+        dataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
