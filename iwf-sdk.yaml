@@ -252,7 +252,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
   # workflowState APIs are hosted by iWF SDK for iWF server to call
-  /api/v1/workflowState/start:
+  /api/v1/workflowState/start: #TODO: rename to /api/v1/workflowState/waitUntil
     post:
       summary: "for invoking WorkflowState.waitUntil API"
       requestBody:
@@ -273,7 +273,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflowState/decide:
+  /api/v1/workflowState/decide: # TODO: rename to /api/v1/workflowState/execute:
     post:
       summary: "for invoking WorkflowState.execute API"
       requestBody:
