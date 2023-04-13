@@ -875,10 +875,13 @@ components:
       type: object
       required:
         - context
+        - workflowType
         - rpcName
       properties:
         context:
           $ref: '#/components/schemas/Context'
+        workflowType:
+          type: string
         rpcName:
           type: string
         input:
