@@ -435,6 +435,9 @@ components:
             $ref: '#/components/schemas/SearchAttribute'
         workflowConfigOverride:
           $ref: '#/components/schemas/WorkflowConfig'
+        # for compatibility
+        idReusePolicy:
+          $ref: '#/components/schemas/IDReusePolicy'
     WorkflowIDReusePolicy:
       type: string
       enum:
@@ -442,6 +445,13 @@ components:
         - ALLOW_DUPLICATE
         - REJECT_DUPLICATE
         - TERMINATE_IF_RUNNING
+    IDReusePolicy:
+      type: string
+      enum:
+        - ALLOW_IF_PREVIOUS_EXISTS_ABNORMALLY
+        - ALLOW_IF_NO_RUNNING
+        - DISALLOW_REUSE
+        - ALLOW_TERMINATE_IF_RUNNING
     PersistenceLoadingPolicy:
       type: object
       properties:

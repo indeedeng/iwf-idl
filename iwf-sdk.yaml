@@ -403,8 +403,8 @@ components:
     WorkflowStartOptions:
       type: object
       properties:
-        workflowIDReusePolicy:
-          $ref: '#/components/schemas/WorkflowIDReusePolicy'
+        idReusePolicy:
+          $ref: '#/components/schemas/IDReusePolicy'
         cronSchedule:
           type: string
         retryPolicy:
@@ -415,13 +415,13 @@ components:
             $ref: '#/components/schemas/SearchAttribute'
         workflowConfigOverride:
           $ref: '#/components/schemas/WorkflowConfig'
-    WorkflowIDReusePolicy:
+    IDReusePolicy:
       type: string
       enum:
-        - ALLOW_DUPLICATE_FAILED_ONLY
-        - ALLOW_DUPLICATE
-        - REJECT_DUPLICATE
-        - TERMINATE_IF_RUNNING
+        - ALLOW_IF_PREVIOUS_EXISTS_ABNORMALLY
+        - ALLOW_IF_NO_RUNNING
+        - DISALLOW_REUSE
+        - ALLOW_TERMINATE_IF_RUNNING
     PersistenceLoadingPolicy:
       type: object
       properties:
