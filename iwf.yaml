@@ -293,7 +293,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/WorkerErrorResponse'
   /api/v1/workflowState/decide:
     post:
       summary: "for invoking WorkflowState.decide API"
@@ -314,7 +314,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/WorkerErrorResponse'
   /api/v1/workflowWorker/rpc:
     post:
       summary: "for invoking workflow RPC API in the worker"
@@ -335,7 +335,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/WorkerErrorResponse'
 components:
   schemas:
     KeyValue:
@@ -519,6 +519,13 @@ components:
       type: string
       enum:
         - NONE
+    WorkerErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        errorType:
+          type: string
     ErrorResponse:
       type: object
       properties:
@@ -526,19 +533,25 @@ components:
           type: string
         subStatus:
           $ref: '#/components/schemas/ErrorSubStatus'
+        originalWorkerErrorDetail:
+          type: string
+        originalWorkerErrorType:
+          type: string
+        originalWorkerErrorStatus:
+          type: integer
     ErrorSubStatus:
       type: string
       enum:
         - UNCATEGORIZED_SUB_STATUS
         - WORKFLOW_ALREADY_STARTED_SUB_STATUS
         - WORKFLOW_NOT_EXISTS_SUB_STATUS
+        - WORKER_API_ERROR
     WorkflowStartRequest:
       type: object
       required:
         - workflowId
         - iwfWorkerUrl
         - iwfWorkflowType
-        - startStateId
         - workflowTimeoutSeconds
       properties:
         workflowId:
