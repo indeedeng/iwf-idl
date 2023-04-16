@@ -159,14 +159,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ObjectSearchRequest'
+              $ref: '#/components/schemas/WorkflowSearchRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ObjectSearchResponse'
+                $ref: '#/components/schemas/WorkflowSearchResponse'
         '400':
           description: Invalid input
           content:
@@ -709,7 +709,7 @@ components:
           type: string
         completedStateOutput:
           $ref: '#/components/schemas/EncodedObject'
-    ObjectSearchRequest:
+    WorkflowSearchRequest:
       type: object
       required:
         - query
@@ -721,7 +721,7 @@ components:
           format: int32
         nextPageToken:
           type: string
-    ObjectSearchResponse:
+    WorkflowSearchResponse:
       type: object
       properties:
         workflowExecutions:
