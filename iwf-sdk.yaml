@@ -473,13 +473,17 @@ components:
           type: array
           items:
             type: string
+        lockingKeys:
+          type: array
+          items:
+            type: string
     PersistenceLoadingType:
       type: string
       enum:
         - LOAD_ALL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITHOUT_LOCKING
+        - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
     #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
-    #            - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
     CommandCarryOverPolicy:
       type: object
       properties:
