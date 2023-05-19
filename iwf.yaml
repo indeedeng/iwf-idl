@@ -215,6 +215,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '420':
+          description: RPC execution error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/timer/skip:
     post:
       summary: "skip the timer of a workflow"
