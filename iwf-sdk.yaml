@@ -434,6 +434,8 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         dataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        cachedDataAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
         waitUntilApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
@@ -597,7 +599,11 @@ components:
           type: string
         workflowRunId:
           type: string
-        keys: # return all objects if this is empty
+        keys: # return all objects if this and cachedAttributeKeys are empty
+          type: array
+          items:
+            type: string
+        cachedAttributeKeys:
           type: array
           items:
             type: string
@@ -605,6 +611,10 @@ components:
       type: object
       properties:
         objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        cachedDataAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -806,6 +816,8 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         dataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        cachedDataAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
         timeoutSeconds:
           type: integer
     WorkflowRpcResponse:
@@ -836,6 +848,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        cachedDataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
     WorkflowWorkerRpcResponse:
       type: object
       properties:
@@ -848,6 +864,10 @@ components:
           items:
             $ref: '#/components/schemas/SearchAttribute'
         upsertDataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        upsertCachedDataAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -883,6 +903,10 @@ components:
           items:
             $ref: '#/components/schemas/SearchAttribute'
         dataObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        cachedDataAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -925,6 +949,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        upsertCachedDataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         commandRequest:
           $ref: '#/components/schemas/CommandRequest'
         upsertStateLocals:
@@ -962,6 +990,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        CachedDataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         stateLocals :
           type: array
           items:
@@ -978,6 +1010,10 @@ components:
           items:
             $ref: '#/components/schemas/SearchAttribute'
         upsertDataObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        upsertCachedDataAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
