@@ -110,6 +110,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/persistence/get:
+    post:
+      summary: "get workflow data objects"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowGetPersistenceDataRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowGetPersistenceDataResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/get:
     post:
       summary: "get a workflow's status and results(if completed & requested)"
@@ -664,6 +685,42 @@ components:
     WorkflowGetSearchAttributesResponse:
       type: object
       properties:
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttribute'
+    WorkflowGetPersistenceDataRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        dataAttributes:
+          type: array
+          items:
+            type: string
+        cachedDataAttributes:
+          type: array
+          items:
+            type: string
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttributeKeyAndType'
+    WorkflowGetPersistenceDataResponse:
+      type: object
+      properties:
+        dataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        cachedDataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         searchAttributes:
           type: array
           items:
