@@ -785,6 +785,10 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         cachedDataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttributeKeyAndType'
         timeoutSeconds:
           type: integer
     WorkflowRpcResponse:
