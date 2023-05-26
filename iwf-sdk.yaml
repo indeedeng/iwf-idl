@@ -470,7 +470,7 @@ components:
         - LOAD_ALL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
-        - LOAD_NONE_PERSISTENCE
+        - LOAD_NONE_ATTRIBUTE
     CommandCarryOverPolicy:
       type: object
       properties:
