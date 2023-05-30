@@ -68,7 +68,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/dataobjects/get: # deprecated and replaced by persistence/get
+  /api/v1/workflow/dataobjects/get:
     post:
       summary: "get workflow data objects"
       requestBody:
@@ -89,7 +89,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/searchattributes/get: # deprecated and replaced by persistence/get
+  /api/v1/workflow/searchattributes/get:
     post:
       summary: "get workflow search attributes"
       requestBody:
@@ -542,7 +542,7 @@ components:
         - LOAD_ALL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
-        - LOAD_NONE
+    #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
     CommandCarryOverPolicy:
       type: object
       properties:
