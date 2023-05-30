@@ -486,6 +486,8 @@ components:
         # for compatibility
         idReusePolicy:
           $ref: '#/components/schemas/IDReusePolicy'
+        useMemoForDataAttributes:
+          type: boolean
     WorkflowIDReusePolicy:
       type: string
       enum:
@@ -1203,8 +1205,6 @@ components:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
-        useMemoForDataAttributes:
-          type: boolean
     Context:
       type: object
       required:

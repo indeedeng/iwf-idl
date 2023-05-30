@@ -463,6 +463,8 @@ components:
             $ref: '#/components/schemas/SearchAttribute'
         workflowConfigOverride:
           $ref: '#/components/schemas/WorkflowConfig'
+        useMemoForDataAttributes:
+          type: boolean
     IDReusePolicy:
       type: string
       enum:
@@ -1167,8 +1169,6 @@ components:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
-        useMemoForDataAttributes:
-          type: boolean
     Context:
       type: object
       required:
