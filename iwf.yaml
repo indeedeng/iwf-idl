@@ -68,7 +68,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/dataobjects/get: # deprecated and replaced by persistence/get
+  /api/v1/workflow/dataobjects/get:
     post:
       summary: "get workflow data objects"
       requestBody:
@@ -89,7 +89,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/searchattributes/get: # deprecated and replaced by persistence/get
+  /api/v1/workflow/searchattributes/get:
     post:
       summary: "get workflow search attributes"
       requestBody:
@@ -104,27 +104,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowGetSearchAttributesResponse'
-        '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/persistence/get:
-    post:
-      summary: "get workflow data objects"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/WorkflowGetPersistenceDataRequest'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/WorkflowGetPersistenceDataResponse'
         '400':
           description: Invalid input
           content:
@@ -460,8 +439,6 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         dataObjectsLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
-        cachedDataAttributesLoadingPolicy:
-          $ref: '#/components/schemas/PersistenceLoadingPolicy'
         commandCarryOverPolicy:
           $ref: '#/components/schemas/CommandCarryOverPolicy'
         startApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
@@ -542,7 +519,7 @@ components:
         - LOAD_ALL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
-        - LOAD_NONE_PERSISTENCE
+    #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
     CommandCarryOverPolicy:
       type: object
       properties:
@@ -650,22 +627,16 @@ components:
           type: string
         workflowRunId:
           type: string
-        keys: # return all objects if this and cachedAttributeKeys are empty
+        keys: # return all objects if this is empty
           type: array
           items:
             type: string
-        cachedAttributeKeys:
-          type: array
-          items:
-            type: string
+        useMemoForDataAttributes:
+          type: boolean
     WorkflowGetDataObjectsResponse:
       type: object
       properties:
         objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
-        cachedDataAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -685,42 +656,6 @@ components:
     WorkflowGetSearchAttributesResponse:
       type: object
       properties:
-        searchAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchAttribute'
-    WorkflowGetPersistenceDataRequest:
-      type: object
-      required:
-        - workflowId
-      properties:
-        workflowId:
-          type: string
-        workflowRunId:
-          type: string
-        dataAttributes:
-          type: array
-          items:
-            type: string
-        cachedDataAttributes:
-          type: array
-          items:
-            type: string
-        searchAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchAttributeKeyAndType'
-    WorkflowGetPersistenceDataResponse:
-      type: object
-      properties:
-        dataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
-        cachedDataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
         searchAttributes:
           type: array
           items:
@@ -885,6 +820,29 @@ components:
           type: integer
         jsonData:
           type: string # serialized data of service.DumpAllInternalResponse model of iwf repo
+    WorkflowStateStartRequest:
+      type: object
+      required:
+        - context
+        - workflowStateId
+        - workflowType
+      properties:
+        context:
+          $ref: '#/components/schemas/Context'
+        workflowType:
+          type: string
+        workflowStateId:
+          type: string
+        stateInput:
+          $ref: '#/components/schemas/EncodedObject'
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttribute'
+        dataObjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
     WorkflowSkipTimerRequest:
       type: object
       required:
@@ -931,14 +889,10 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         dataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
-        cachedDataAttributesLoadingPolicy:
-          $ref: '#/components/schemas/PersistenceLoadingPolicy'
-        searchAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchAttributeKeyAndType'
         timeoutSeconds:
           type: integer
+        useMemoForDataAttributes:
+          type: boolean
     WorkflowRpcResponse:
       type: object
       properties:
@@ -967,10 +921,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        cachedDataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
     WorkflowWorkerRpcResponse:
       type: object
       properties:
@@ -986,10 +936,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        upsertCachedDataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
         recordEvents:
           type: array
           items:
@@ -1002,33 +948,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelPublishing'
-    WorkflowStateStartRequest:
-      type: object
-      required:
-        - context
-        - workflowStateId
-        - workflowType
-      properties:
-        context:
-          $ref: '#/components/schemas/Context'
-        workflowType:
-          type: string
-        workflowStateId:
-          type: string
-        stateInput:
-          $ref: '#/components/schemas/EncodedObject'
-        searchAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchAttribute'
-        dataObjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
-        cachedDataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
     WorkflowStateStartResponse:
       type: object
       properties:
@@ -1037,10 +956,6 @@ components:
           items:
             $ref: '#/components/schemas/SearchAttribute'
         upsertDataObjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
-        upsertCachedDataAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -1081,10 +996,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
-        CachedDataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
         stateLocals :
           type: array
           items:
@@ -1101,10 +1012,6 @@ components:
           items:
             $ref: '#/components/schemas/SearchAttribute'
         upsertDataObjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
-        upsertCachedDataAttributes:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
@@ -1296,6 +1203,8 @@ components:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
+        useMemoForDataAttributes:
+          type: boolean
     Context:
       type: object
       required:
