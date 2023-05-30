@@ -68,21 +68,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/persistence/get:
+  /api/v1/workflow/dataobjects/get:
     post:
       summary: "get workflow data objects"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowGetPersistenceDataRequest'
+              $ref: '#/components/schemas/WorkflowGetDataObjectsRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowGetPersistenceDataResponse'
+                $ref: '#/components/schemas/WorkflowGetDataObjectsResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/searchattributes/get:
+    post:
+      summary: "get workflow search attributes"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowGetSearchAttributesRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowGetSearchAttributesResponse'
         '400':
           description: Invalid input
           content:
@@ -569,7 +590,7 @@ components:
         - CANCEL # default behavior
         - TERMINATE # this will hard terminate the workflow
         - FAIL
-    WorkflowGetPersistenceDataRequest:
+    WorkflowGetDataObjectsRequest:
       type: object
       required:
         - workflowId
@@ -578,29 +599,41 @@ components:
           type: string
         workflowRunId:
           type: string
-        dataAttributes:
+        keys: # return all objects if this and cachedAttributeKeys are empty
           type: array
           items:
             type: string
+        cachedAttributeKeys:
+          type: array
+          items:
+            type: string
+    WorkflowGetDataObjectsResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         cachedDataAttributes:
           type: array
           items:
-            type: string
-        searchAttributes:
+            $ref: '#/components/schemas/KeyValue'
+    WorkflowGetSearchAttributesRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        keys: # return all search attributes if this is empty
           type: array
           items:
             $ref: '#/components/schemas/SearchAttributeKeyAndType'
-    WorkflowGetPersistenceDataResponse:
+    WorkflowGetSearchAttributesResponse:
       type: object
       properties:
-        dataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
-        cachedDataAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValue'
         searchAttributes:
           type: array
           items:
