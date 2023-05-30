@@ -631,6 +631,8 @@ components:
           type: array
           items:
             type: string
+        useMemoForDataAttributes:
+          type: boolean
     WorkflowGetDataObjectsResponse:
       type: object
       properties:
