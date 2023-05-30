@@ -808,6 +808,8 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         timeoutSeconds:
           type: integer
+        useMemoForDataAttributes:
+          type: boolean
     WorkflowRpcResponse:
       type: object
       properties:
@@ -1163,6 +1165,8 @@ components:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
+        useMemoForDataAttributes:
+          type: boolean
     Context:
       type: object
       required:
