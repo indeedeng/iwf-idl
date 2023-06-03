@@ -814,6 +814,10 @@ components:
           type: integer
         useMemoForDataAttributes:
           type: boolean
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttributeKeyAndType'
     WorkflowRpcResponse:
       type: object
       properties:
