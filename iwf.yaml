@@ -1040,6 +1040,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StateMovement'
+        conditionalClose:
+          $ref: '#/components/schemas/WorkflowConditionalClose'
+    WorkflowConditionalClose:
+      type: object
+      properties:
+        conditionalCloseType:
+          $ref: '#/components/schemas/WorkflowConditionalCloseType'
+        internalChannelName:
+          type: string
+        closeInput:
+          $ref: '#/components/schemas/EncodedObject'
+        conditionUnmetDecision:
+          type: array
+          items:
+            $ref: '#/components/schemas/StateMovement'
+    WorkflowConditionalCloseType:
+      type: string
+      enum:
+        - FORCE_COMPLETE_ON_EMPTY_INTERNAL_CHANNEL
     StateMovement:
       type: object
       required:
