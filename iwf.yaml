@@ -152,6 +152,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '420':
+          description: wait has exceeded timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/search:
     post:
       summary: "search for workflows by a search attribute query"
