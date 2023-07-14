@@ -688,6 +688,11 @@ components:
         - TERMINATED
         - CANCELED
         - CONTINUED_AS_NEW
+    WorkflowInfo:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/WorkflowStatus'
     StateCompletionOutput:
       type: object
       required:
