@@ -70,19 +70,19 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/dataobjects/get:
     post:
-      summary: "get workflow data objects"
+      summary: "get workflow data attributes"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WorkflowGetDataObjectsRequest'
+              $ref: '#/components/schemas/WorkflowGetDataAttributesRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowGetDataObjectsResponse'
+                $ref: '#/components/schemas/WorkflowGetDataAttributesResponse'
         '400':
           description: Invalid input
           content:
@@ -597,7 +597,7 @@ components:
         - CANCEL # default behavior
         - TERMINATE # this will hard terminate the workflow
         - FAIL
-    WorkflowGetDataObjectsRequest:
+    WorkflowGetDataAttributesRequest:
       type: object
       required:
         - workflowId
@@ -612,7 +612,7 @@ components:
             type: string
         useMemoForDataAttributes:
           type: boolean
-    WorkflowGetDataObjectsResponse:
+    WorkflowGetDataAttributesResponse:
       type: object
       properties:
         objects:
