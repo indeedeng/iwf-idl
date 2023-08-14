@@ -440,8 +440,6 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         dataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
-        commandCarryOverPolicy:
-          $ref: '#/components/schemas/CommandCarryOverPolicy'
         waitUntilApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
           type: integer
         executeApiTimeoutSeconds: # NOTE: this is the timeout for the single attempt of Cadence/Temporal activity(start to close timeout)
@@ -499,15 +497,6 @@ components:
         - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
         - LOAD_NONE
     #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
-    CommandCarryOverPolicy:
-      type: object
-      properties:
-        commandCarryOverType:
-          $ref: '#/components/schemas/CommandCarryOverType'
-    CommandCarryOverType:
-      type: string
-      enum:
-        - NONE
     WorkerErrorResponse:
       type: object
       properties:
