@@ -284,6 +284,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /info/healthcheck:
+    get:
+      summary: "return health info of the server"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthInfo'
   # Below APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start: #TODO: rename to /api/v1/workflowState/waitUntil
     post:
@@ -504,6 +514,15 @@ components:
           type: string
         errorType:
           type: string
+    HealthInfo:
+      type: object
+      properties:
+        condition:
+          type: string
+        hostname:
+          type: string
+        duration: # indicate how long to check the health(in seconds)
+          type: integer
     ErrorResponse:
       type: object
       properties:
