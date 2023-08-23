@@ -438,6 +438,11 @@ components:
           type: integer
         maximumAttempts: # default to 0, means unlimited
           type: integer
+    ExecuteApiFailurePolicy:
+      type: string
+      enum:
+        - FAIL_WORKFLOW_ON_EXECUTE_API_FAILURE
+        - PROCEED_TO_CONFIGURED_STATE
     WaitUntilApiFailurePolicy:
       type: string
       enum:
@@ -460,6 +465,10 @@ components:
           $ref: '#/components/schemas/RetryPolicy'
         waitUntilApiFailurePolicy:
           $ref: '#/components/schemas/WaitUntilApiFailurePolicy'
+        executeApiFailurePolicy:
+          $ref: '#/components/schemas/ExecuteApiFailurePolicy'
+        executeApiFailureProceedStateId:
+          type: string
         skipWaitUntil:
           type: boolean
     WorkflowStartOptions:
