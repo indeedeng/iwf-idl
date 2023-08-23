@@ -474,6 +474,8 @@ components:
           $ref: '#/components/schemas/ExecuteApiFailurePolicy'
         executeApiFailureProceedStateId:
           type: string
+        executeApiFailureProceedStateOptions:
+          $ref: '#/components/schemas/WorkflowStateOptions'
         skipStartApi:
         # all below are for compatibility
           type: boolean

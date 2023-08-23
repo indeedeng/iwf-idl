@@ -469,6 +469,8 @@ components:
           $ref: '#/components/schemas/ExecuteApiFailurePolicy'
         executeApiFailureProceedStateId:
           type: string
+        executeApiFailureProceedStateOptions:
+          $ref: '#/components/schemas/WorkflowStateOptions'
         skipWaitUntil:
           type: boolean
     WorkflowStartOptions:
