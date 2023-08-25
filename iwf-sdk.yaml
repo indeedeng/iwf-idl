@@ -1061,11 +1061,11 @@ components:
       type: object
       required:
         - workflowRunId
-        - stateId
+        - stateExecutionId
       properties:
         workflowRunId:
           type: string
-        stateId:
+        stateExecutionId:
           type: string
     WorkflowWaitForStateCompletionResponse:
       type: object
