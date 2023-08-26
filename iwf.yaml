@@ -320,6 +320,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '420':
+          description: wait has exceeded timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   # Below APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
