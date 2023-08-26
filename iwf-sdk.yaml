@@ -1060,11 +1060,10 @@ components:
     WorkflowWaitForStateCompletionRequest:
       type: object
       required:
+        - workflowId
         - stateExecutionId
       properties:
         workflowId:
-          type: string
-        workflowRunId:
           type: string
         stateExecutionId:
           type: string
