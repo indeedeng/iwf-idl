@@ -269,6 +269,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/waitForStateCompletion:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowWaitForStateCompletionRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowWaitForStateCompletionResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '420':
+          description: wait has exceeded timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/internal/dump:
     post:
       summary: "dump internal info of a workflow"
@@ -1037,6 +1063,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelPublishing'
+    WorkflowWaitForStateCompletionRequest:
+      type: object
+      required:
+        - workflowId
+        - stateExecutionId
+      properties:
+        workflowId:
+          type: string
+        stateExecutionId:
+          type: string
+    WorkflowWaitForStateCompletionResponse:
+      type: object
+      properties:
+        stateCompletionOutput:
+          $ref: '#/components/schemas/StateCompletionOutput'
     StateDecision:
       type: object
       properties:
