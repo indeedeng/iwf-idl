@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  description: >-
+    This APIs for iwf SDKs to operate workflows
+  version: 1.0.0
+  title: XDB APIs
+paths:
+  # object APIs are hosted by xdb server for xdb SDKs to call
+  /api/v1/object-execution/start:
+    post:
+      summary: "start a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ObjectExecutionStartRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectExecutionStartResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    KeyValue:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          $ref: '#/components/schemas/EncodedObject'
+    EncodedObject:
+      type: object
+      properties:
+        encoding:
+          type: string
+        data:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        subStatus:
+          $ref: '#/components/schemas/ErrorSubStatus'
+        originalWorkerErrorDetail:
+          type: string
+        originalWorkerErrorType:
+          type: string
+        originalWorkerErrorStatus:
+          type: integer
+    ErrorSubStatus:
+      type: string
+      enum:
+        - UNCATEGORIZED_SUB_STATUS
+        - WORKFLOW_ALREADY_STARTED_SUB_STATUS
+        - WORKFLOW_NOT_EXISTS_SUB_STATUS
+        - WORKER_API_ERROR
+        - LONG_POLL_TIME_OUT_SUB_STATUS
+    ObjectExecutionStartRequest:
+      type: object
+      required:
+        - objectId
+      properties:
+        objectId:
+          type: string
+    ObjectExecutionStartResponse:
+      type: object
+      required:
+        - objectExecutionId
+      properties:
+        objectExecutionId:
+          type: string

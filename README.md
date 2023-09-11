@@ -1,2 +1,2 @@
-# iwf-idl
-interface definition between iWF SDKs and [iWF server](https://github.com/indeedeng/iwf)
+# xdb-apis
+interface definition between xdb SDKs and [xdb server](https://github.com/xdblab/xdb)
