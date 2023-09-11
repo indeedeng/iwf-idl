@@ -1,14 +1,14 @@
 openapi: 3.0.0
 info:
   description: >-
-    This APIs for iwf SDKs to operate workflows
+    This APIs for iwf SDKs to operate xobjects
   version: 1.0.0
   title: XDB APIs
 paths:
   # object APIs are hosted by xdb server for xdb SDKs to call
   /api/v1/object-execution/start:
     post:
-      summary: "start a workflow"
+      summary: "start an object execution"
       requestBody:
         content:
           application/json:
@@ -60,8 +60,8 @@ components:
       type: string
       enum:
         - UNCATEGORIZED_SUB_STATUS
-        - WORKFLOW_ALREADY_STARTED_SUB_STATUS
-        - WORKFLOW_NOT_EXISTS_SUB_STATUS
+        - EXECUTION_ALREADY_STARTED_SUB_STATUS
+        - EXECUTION_NOT_EXISTS_SUB_STATUS
         - WORKER_API_ERROR
         - LONG_POLL_TIME_OUT_SUB_STATUS
     ObjectExecutionStartRequest:
