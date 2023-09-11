@@ -1067,6 +1067,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/InterStateChannelPublishing'
+<<<<<<< Updated upstream
+=======
+    WorkflowWaitForStateCompletionRequest:
+      type: object
+      required:
+        - workflowId
+        - stateExecutionId
+      properties:
+        workflowId:
+          type: string
+        stateExecutionId:
+          type: string
+        waitTimeSeconds: # amount of time that the request will be waiting for, only works for getWithWait API
+          type: integer
+    WorkflowWaitForStateCompletionResponse:
+      type: object
+      properties:
+        stateCompletionOutput:
+          $ref: '#/components/schemas/StateCompletionOutput'
+>>>>>>> Stashed changes
     StateDecision:
       type: object
       properties:
