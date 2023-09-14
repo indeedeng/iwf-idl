@@ -635,6 +635,10 @@ components:
           type: string
         startStateId:
           type: string
+        waitForCompletionStateExecutionIds:
+          type: array
+          items:
+            type: string
         stateInput:
           $ref: '#/components/schemas/EncodedObject'
         stateOptions:
@@ -1103,6 +1107,8 @@ components:
           type: string
         stateExecutionId:
           type: string
+        waitTimeSeconds: # amount of time that the request will be waiting for, only works for getWithWait API
+          type: integer
     WorkflowWaitForStateCompletionResponse:
       type: object
       properties:
