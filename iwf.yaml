@@ -300,6 +300,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthInfo'
+  /api/v1/workflow/waitForStateCompletion:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowWaitForStateCompletionRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowWaitForStateCompletionResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '420':
+          description: wait has exceeded timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   # Below APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
