@@ -605,7 +605,7 @@ components:
           type: string
         startStateId:
           type: string
-        waitForCompletionStateExecutionIds :
+        waitForCompletionStateExecutionIds:
           type: array
           items:
             type: string
