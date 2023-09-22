@@ -1,32 +1,32 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   description: >-
-    This APIs for iwf SDKs to operate xobjects
-  version: 1.0.0
+    This APIs between xdb service and SDKs
+  version: 0.0.1
   title: XDB APIs
 paths:
-  # object APIs are hosted by xdb server for xdb SDKs to call
-  /api/v1/object-execution/start:
+  # service APIs are hosted by xdb service for xdb SDKs to call
+  /api/v1/service/process-execution/start:
     post:
-      summary: "start an object execution"
+      summary: start an object process execution
       requestBody:
         content:
-          application/json:
+          'application/json':
             schema:
-              $ref: '#/components/schemas/ObjectExecutionStartRequest'
+              $ref: '#/components/schemas/ProcessExecutionStartRequest'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ObjectExecutionStartResponse'
+                $ref: '#/components/schemas/ProcessExecutionStartResponse'
         '400':
-          description: Invalid input
+          description: Invalid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorModel'
 components:
   schemas:
     KeyValue:
@@ -43,7 +43,7 @@ components:
           type: string
         data:
           type: string
-    ErrorResponse:
+    ErrorModel:
       type: object
       properties:
         detail:
@@ -64,17 +64,20 @@ components:
         - EXECUTION_NOT_EXISTS_SUB_STATUS
         - WORKER_API_ERROR
         - LONG_POLL_TIME_OUT_SUB_STATUS
-    ObjectExecutionStartRequest:
+    ProcessExecutionStartRequest:
       type: object
       required:
         - objectId
+        - processId
       properties:
+        processId:
+          type: string
         objectId:
           type: string
-    ObjectExecutionStartResponse:
+    ProcessExecutionStartResponse:
       type: object
       required:
-        - objectExecutionId
+        - processExecutionId
       properties:
-        objectExecutionId:
+        processExecutionId:
           type: string
