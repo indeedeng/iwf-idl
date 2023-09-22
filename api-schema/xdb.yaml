@@ -5,8 +5,8 @@ info:
   version: 0.0.1
   title: XDB APIs
 paths:
-  # service APIs are hosted by xdb service for xdb SDKs to call
-  /api/v1/service/process-execution/start:
+  # xdb service APIs are hosted by xdb service for xdb SDKs to call
+  /api/v1/xdb/service/process-execution/start:
     post:
       summary: start an object process execution
       requestBody:
@@ -27,21 +27,242 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
+  # xdb workers APIs are hosted by iWF applications via SDKs, for iWF server to call back
+  /api/v1/xdb/worker/async-state/wait-until:
+    post:
+      summary: "for invoking AsyncState.waitUntil API"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsyncStateWaitUntilRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncStateWaitUntilResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerErrorResponse'
+  /api/v1/xdb/worker/async-state/execute:
+    post:
+      summary: "for invoking AsyncState.execute API"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsyncStateExecuteRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncStateExecuteResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerErrorResponse'
+
 components:
   schemas:
-    KeyValue:
+    AsyncStateWaitUntilRequest:
+      type: object
+      properties:
+        context:
+          $ref: '#/components/schemas/Context'
+        processType:
+          type: string
+        asyncStateId:
+          type: string
+        stateInput:
+          $ref: '#/components/schemas/EncodedObject'
+    AsyncStateWaitUntilResponse:
+      type: object
+      properties:
+        commandRequest:
+          $ref: '#/components/schemas/CommandRequest'
+        sendMessagesToInternalQueue:
+          type: array
+          items:
+            $ref: '#/components/schemas/InternalQueueMessage'
+    InternalQueueMessage:
+      type: object
+      required:
+        - queueName
+      properties:
+        queueName:
+          type: string
+        value:
+          $ref: '#/components/schemas/EncodedObject'
+    CommandRequest:
+      type: object
+      properties:
+        commandWaitingType:
+          $ref: '#/components/schemas/CommandWaitingType'
+        timerCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimerCommand'
+        internalQueueCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/InternalQueueCommand'
+    CommandWaitingType:
+      type: string
+      enum:
+        - ALL_COMPLETED
+        - ANY_COMPLETED
+        # - ANY_COMBINATION_COMPLETED # this allows specifying combination using commandIds, all commandIds cannot be emptied in order to use this CommandWaitingType
+    TimerCommand:
+      type: object
+      required:
+        - firingUnixTimestampSeconds
+      properties:
+        commandId:
+          type: string
+        firingUnixTimestampSeconds:
+          type: integer
+          format: int64
+    InternalQueueCommand:
+      type: object
+      required:
+        - queueName
+      properties:
+        commandId:
+          type: string
+        queueName:
+          type: string
+        numberOfMessages:
+          type: integer
+        numberOfMessagesType:
+          $ref: '#/components/schemas/NumberOfMessagesType'
+    NumberOfMessagesType:
+      type: string
+      enum:
+        - EXACTLY_MATCHED
+        - ZERO_TO_AT_MOST
+        - ONE_TO_AT_MOST
+    AsyncStateExecuteRequest:
+      type: object
+      properties:
+        context:
+          $ref: '#/components/schemas/Context'
+        processType:
+          type: string
+        asyncStateId:
+          type: string
+        stateInput:
+          $ref: '#/components/schemas/EncodedObject'
+        commandResults:
+          $ref: '#/components/schemas/CommandResults'
+        dataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+    CommandResults:
+      type: object
+      properties:
+        internalQueueCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/InternalQueueCommandResult'
+        timerCommands:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimerCommandResult'
+    TimerCommandResult:
+      type: object
+      required:
+        - timerStatus
+      properties:
+        commandId:
+          type: string
+        timerStatus:
+          $ref: '#/components/schemas/CommandRequestStatus'
+    InternalQueueCommandResult:
+      type: object
+      required:
+        - queueName
+        - requestStatus
+      properties:
+        commandId:
+          type: string
+        requestStatus:
+          $ref: '#/components/schemas/CommandRequestStatus'
+        queueName:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncodedObject'
+    CommandRequestStatus:
+      type: string
+      enum:
+        - REQUEST_COMPLETED
+        - COMMAND_NOT_COMPLETED
+    AsyncStateExecuteResponse:
+      type: object
+    Context:
+      type: object
+      required:
+        - processId
+        - processExecutionId
+        - processStartedTimestamp
+      properties:
+        processId:
+          type: string
+        processExecutionId:
+          type: string
+        processStartedTimestamp:
+          type: integer
+          format: int64
+        stateExecutionId:
+          type: string
+        firstAttemptTimestamp:
+          description: for async state API only(during backoff retry)
+          type: integer
+          format: int64
+        attempt:
+          description: for async state API only(during backoff retry)
+          type: integer
+    WorkerErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        errorType:
+          type: string
+    AttributeType:
+      type: object
+      properties:
+        key:
+          type: string
+    Attribute:
       type: object
       properties:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/EncodedObject'
+          $ref: '#/components/schemas/AttributeValue'
     EncodedObject:
       type: object
       properties:
         encoding:
           type: string
         data:
+          type: string
+    AttributeValue:
+      type: object
+      properties:
+        databaseValue:
           type: string
     ErrorModel:
       type: object
@@ -69,11 +290,80 @@ components:
       required:
         - objectId
         - processId
+        - processType
+        - workerUrl
       properties:
         processId:
           type: string
         objectId:
           type: string
+        processType:
+          type: string
+        workerUrl:
+          type: string
+        startStateId:
+          type: string
+        startStateInput:
+          $ref: '#/components/schemas/EncodedObject'
+        upsertInitialDataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        startStateConfig:
+          $ref: '#/components/schemas/AsyncStateConfig'
+        processStartConfig:
+          $ref: '#/components/schemas/ProcessStartConfig'
+    ProcessStartConfig:
+      type: object
+      properties:
+        timeoutSeconds:
+          type: integer
+        idReusePolicy:
+          $ref: '#/components/schemas/ProcessIdReusePolicy'
+        retentionPolicy:
+          $ref: '#/components/schemas/ProcessRetentionPolicy'
+    ProcessIdReusePolicy:
+      type: string
+      enum:
+        - ALLOW_IF_PREVIOUS_EXIT_ABNORMALLY
+        - ALLOW_IF_NO_RUNNING
+        - DISALLOW_REUSE
+        - TERMINATE_IF_RUNNING
+    ProcessRetentionPolicy:
+      type: object
+      properties:
+        defaultCloseRetentionSeconds:
+          type: integer
+        completedRetentionSeconds:
+          type: integer
+        failedRetentionSeconds:
+          type: integer
+        timeoutRetentionSeconds:
+          type: integer
+        terminatedRetentionSeconds:
+          type: integer
+    AsyncStateConfig:
+      type: object
+      properties:
+        skipWaitUntil:
+          type: boolean
+        executePersistenceLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
+    PersistenceLoadingPolicy:
+      type: object
+      properties:
+        persistenceLoadingType:
+          $ref: '#/components/schemas/PersistenceLoadingType'
+        selectiveAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeType'
+    PersistenceLoadingType:
+      type: string
+      enum:
+        - NO_LOCKING
+        - EXCLUSIVE_LOCK
+        - LOAD_NONE
     ProcessExecutionStartResponse:
       type: object
       required:
