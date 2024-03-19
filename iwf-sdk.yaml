@@ -512,6 +512,9 @@ components:
           $ref: '#/components/schemas/IDReusePolicy'
         cronSchedule:
           type: string
+        workflowStartDelaySeconds:
+          type: integer
+          format: int32
         retryPolicy:
           $ref: '#/components/schemas/WorkflowRetryPolicy'
         searchAttributes:
