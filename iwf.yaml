@@ -1333,10 +1333,14 @@ components:
       properties:
         disableSystemSearchAttribute:
           type: boolean
+        enabledExecutingStateExecutionIds:
+          type: boolean
         continueAsNewThreshold:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
+        optimizeActivity:
+          type: boolean
     Context:
       type: object
       required:
