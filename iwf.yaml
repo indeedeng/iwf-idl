@@ -1259,6 +1259,10 @@ components:
           type: string
         signalChannelName:
           type: string
+        atLeast:
+          type: integer
+        atMost:
+          type: integer
     InterStateChannelCommand:
       type: object
       required:
@@ -1269,6 +1273,10 @@ components:
           type: string
         channelName:
           type: string
+        atLeast:
+          type: integer
+        atMost:
+          type: integer
     TimerResult:
       type: object
       required:
