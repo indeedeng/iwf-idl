@@ -1295,12 +1295,16 @@ components:
     WorkflowConfig:
       type: object
       properties:
-        disableSystemSearchAttribute:
+        disableSystemSearchAttribute: # deprecated in favor of enabledExecutingStateExecutionIds
+          type: boolean
+        enabledExecutingStateExecutionIds:
           type: boolean
         continueAsNewThreshold:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
+        optimizeActivity:
+          type: boolean
     Context:
       type: object
       required:
