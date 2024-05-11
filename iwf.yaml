@@ -326,6 +326,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/triggerContinueAsNew:
+    post:
+      summary: "trigger ContinueAsNew for a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerContinueAsNewRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   # Below APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start:
     post:
@@ -1117,6 +1135,15 @@ components:
       properties:
         stateCompletionOutput:
           $ref: '#/components/schemas/StateCompletionOutput'
+    TriggerContinueAsNewRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
     StateDecision:
       type: object
       properties:
