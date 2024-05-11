@@ -582,7 +582,7 @@ components:
         - LOAD_PARTIAL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
         - LOAD_NONE
-    #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
+        - LOAD_ALL_WITH_PARTIAL_LOCK
     WorkerErrorResponse:
       type: object
       properties:
