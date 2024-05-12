@@ -326,6 +326,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthInfo'
+  /api/v1/workflow/triggerContinueAsNew:
+    post:
+      summary: "trigger ContinueAsNew for a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerContinueAsNewRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   # Below APIs are hosted by iWF SDK for iWF server to call
   /api/v1/workflowState/start: #TODO: rename to /api/v1/workflowState/waitUntil
     post:
@@ -552,7 +570,7 @@ components:
         - LOAD_PARTIAL_WITHOUT_LOCKING
         - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
         - LOAD_NONE
-    #            - LOAD_ALL_WITH_EXCLUSIVE_LOCK
+        - LOAD_ALL_WITH_PARTIAL_LOCK
     WorkerErrorResponse:
       type: object
       properties:
@@ -1087,6 +1105,15 @@ components:
       properties:
         stateCompletionOutput:
           $ref: '#/components/schemas/StateCompletionOutput'
+    TriggerContinueAsNewRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
     StateDecision:
       type: object
       properties:
@@ -1196,6 +1223,10 @@ components:
           type: string
         signalChannelName:
           type: string
+        atLeast:
+          type: integer
+        atMost:
+          type: integer
     InterStateChannelCommand:
       type: object
       required:
@@ -1206,6 +1237,10 @@ components:
           type: string
         channelName:
           type: string
+        atLeast:
+          type: integer
+        atMost:
+          type: integer
     TimerResult:
       type: object
       required:
@@ -1268,12 +1303,16 @@ components:
     WorkflowConfig:
       type: object
       properties:
-        disableSystemSearchAttribute:
+        disableSystemSearchAttribute: # deprecated in favor of enabledExecutingStateExecutionIds
+          type: boolean
+        enabledExecutingStateExecutionIds:
           type: boolean
         continueAsNewThreshold:
           type: integer
         continueAsNewPageSizeInBytes:
           type: integer
+        optimizeActivity:
+          type: boolean
     Context:
       type: object
       required:
