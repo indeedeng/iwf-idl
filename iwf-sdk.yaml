@@ -563,6 +563,8 @@ components:
           type: array
           items:
             type: string
+        useKeyAsPrefix:
+          type: boolean
     PersistenceLoadingType:
       type: string
       enum:
