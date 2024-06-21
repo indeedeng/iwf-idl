@@ -1217,6 +1217,7 @@ components:
           format: int64
         durationSeconds:
           type: integer
+          format: int64
     SignalCommand:
       type: object
       required:
