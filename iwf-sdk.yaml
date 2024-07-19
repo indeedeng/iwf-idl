@@ -1208,13 +1208,10 @@ components:
       type: object
       required:
         - commandId
-      # either firingUnixTimestampSeconds or durationSeconds must be provided
+        - durationSeconds
       properties:
         commandId:
           type: string
-        firingUnixTimestampSeconds:
-          type: integer
-          format: int64
         durationSeconds:
           type: integer
           format: int64
