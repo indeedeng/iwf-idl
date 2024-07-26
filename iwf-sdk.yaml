@@ -1018,6 +1018,8 @@ components:
     WorkflowStateWaitUntilResponse:
       type: object
       properties:
+        localActivityInput: # for debugging succeeded local activity which didn't include input in the history
+          type: string
         upsertSearchAttributes:
           type: array
           items:
@@ -1072,6 +1074,8 @@ components:
     WorkflowStateExecuteResponse:
       type: object
       properties:
+        localActivityInput: # for debugging succeeded local activity which didn't include input in the history
+          type: string
         stateDecision:
           $ref: '#/components/schemas/StateDecision'
         upsertSearchAttributes:
