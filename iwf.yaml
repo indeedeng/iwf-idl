@@ -658,6 +658,10 @@ components:
           type: string
         startStateId:
           type: string
+        waitForCompletionStateIds:
+          type: array
+          items:
+            type: string
         waitForCompletionStateExecutionIds:
           type: array
           items:
