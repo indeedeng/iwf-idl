@@ -1102,11 +1102,14 @@ components:
       type: object
       required:
         - workflowId
-        - stateExecutionId
       properties:
         workflowId:
           type: string
-        stateExecutionId:
+        stateExecutionId: # either stateExecutionId or stateId + waitForKey must be provided
+          type: string
+        stateId:
+          type: string
+        waitForKey:
           type: string
         waitTimeSeconds: # amount of time that the request will be waiting for, only works for getWithWait API
           type: integer
@@ -1159,6 +1162,8 @@ components:
           $ref: '#/components/schemas/EncodedObject'
         stateOptions:
           $ref: '#/components/schemas/WorkflowStateOptions'
+        waitForKey:
+          type: string
     CommandRequest:
       type: object
       required:
