@@ -1255,7 +1255,6 @@ components:
           type: boolean
     TimerCommand:
       type: object
-      required:
       # either firingUnixTimestampSeconds or durationSeconds must be provided
       properties:
         commandId:
