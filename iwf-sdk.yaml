@@ -1220,7 +1220,6 @@ components:
     TimerCommand:
       type: object
       required:
-        - commandId
         - durationSeconds
       properties:
         commandId:
@@ -1231,7 +1230,6 @@ components:
     SignalCommand:
       type: object
       required:
-        - commandId
         - signalChannelName
       properties:
         commandId:
@@ -1245,7 +1243,6 @@ components:
     InterStateChannelCommand:
       type: object
       required:
-        - commandId
         - channelName
       properties:
         commandId:
@@ -1259,7 +1256,6 @@ components:
     TimerResult:
       type: object
       required:
-        - commandId
         - timerStatus
       properties:
         commandId:
@@ -1274,7 +1270,6 @@ components:
     SignalResult:
       type: object
       required:
-        - commandId
         - signalChannelName
         - signalRequestStatus
       properties:
@@ -1289,7 +1284,6 @@ components:
     InterStateChannelResult:
       type: object
       required:
-        - commandId
         - channelName
         - requestStatus
       properties:
