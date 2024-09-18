@@ -1295,6 +1295,7 @@ components:
       type: object
       required:
         - timerStatus
+        - commandId # this is required for backward compatibility. Remove it when SDK is updated to support empty commandId.
       properties:
         commandId:
           type: string
@@ -1310,6 +1311,7 @@ components:
       required:
         - signalChannelName
         - signalRequestStatus
+        - commandId # this is required for backward compatibility. Remove it when SDK is updated to support empty commandId.
       properties:
         commandId:
           type: string
@@ -1324,6 +1326,7 @@ components:
       required:
         - channelName
         - requestStatus
+        - commandId # this is required for backward compatibility. Remove it when SDK is updated to support empty commandId.
       properties:
         commandId:
           type: string
