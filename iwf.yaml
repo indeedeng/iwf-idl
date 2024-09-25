@@ -559,6 +559,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchAttribute'
+        dataAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
         workflowConfigOverride:
           $ref: '#/components/schemas/WorkflowConfig'
         # for compatibility
