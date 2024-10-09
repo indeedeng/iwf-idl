@@ -541,7 +541,11 @@ components:
           $ref: '#/components/schemas/WaitUntilApiFailurePolicy'
         skipWaitUntil:
           type: boolean
-        dataAttributesLoadingPolicy:
+        dataAttributesLoadingPolicy: # deprecated in favor of waitUntilApiDataAttributesLoadingPolicy and executeApiDataAttributesLoadingPolicy
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        waitUntilApiDataAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        executeApiDataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         waitUntilApiDataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
