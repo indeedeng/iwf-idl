@@ -543,6 +543,10 @@ components:
           type: boolean
         dataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        waitUntilApiDataAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        executeApiDataAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
     WorkflowStartOptions:
       type: object
       properties:
