@@ -1108,10 +1108,10 @@ components:
             $ref: '#/components/schemas/InterStateChannelPublishing'
     WorkflowWaitForStateCompletionRequest:
       type: object
-      required:
-        - workflowId
       properties:
-        workflowId:
+        workflowId: # either workflowId or firstRunId must be provided
+          type: string
+        firstRunId:
           type: string
         stateExecutionId: # either stateExecutionId or stateId + waitForKey must be provided
           type: string

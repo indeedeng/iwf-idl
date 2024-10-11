@@ -7,4 +7,4 @@ There are two idl files: iwf.yaml and iwf-sdk.yaml:
 * iwf-sdk.yaml is for SDKs
 * iwf-sdk.yaml is a subset of iwf.yaml.
 
-This is because iwf-server needs to be backward compatible but some of the old shema doesn't need in SDK anymore
+This is because iwf-server needs to be backward compatible but some of the old schema doesn't need in SDK anymore
