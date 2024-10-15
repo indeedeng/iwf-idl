@@ -1329,8 +1329,14 @@ components:
       properties:
         disableSystemSearchAttribute: # deprecated in favor of enabledExecutingStateExecutionIds
           type: boolean
-        enabledExecutingStateExecutionIds:
+        enabledExecutingStateExecutionIds: # deprecated in favor of executingStateIdMode
           type: boolean
+        executingStateIdMode:
+          type: string
+          enum:
+            - ENABLED_FOR_ALL
+            - ENABLED_FOR_STATES_WITH_WAIT_UNTIL
+            - DISABLED
         continueAsNewThreshold:
           type: integer
         continueAsNewPageSizeInBytes:
