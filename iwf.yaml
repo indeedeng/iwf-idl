@@ -1366,10 +1366,14 @@ components:
     WorkflowConfig:
       type: object
       properties:
-        disableSystemSearchAttribute:
+        disableSystemSearchAttribute: # deprecated in favor of executingStateIdMode
           type: boolean
-        enabledExecutingStateExecutionIds:
-          type: boolean
+        executingStateIdMode:
+          type: string
+          enum:
+            - ENABLED_FOR_ALL
+            - ENABLED_FOR_STATES_WITH_WAIT_UNTIL
+            - DISABLED
         continueAsNewThreshold:
           type: integer
         continueAsNewPageSizeInBytes:
