@@ -503,6 +503,10 @@ components:
       properties:
         searchAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        waitUntilApiSearchAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
+        executeApiSearchAttributesLoadingPolicy:
+          $ref: '#/components/schemas/PersistenceLoadingPolicy'
         dataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         waitUntilApiDataAttributesLoadingPolicy:
