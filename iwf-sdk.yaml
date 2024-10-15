@@ -1327,9 +1327,7 @@ components:
     WorkflowConfig:
       type: object
       properties:
-        disableSystemSearchAttribute: # deprecated in favor of enabledExecutingStateExecutionIds
-          type: boolean
-        enabledExecutingStateExecutionIds: # deprecated in favor of executingStateIdMode
+        disableSystemSearchAttribute: # deprecated in favor of executingStateIdMode
           type: boolean
         executingStateIdMode:
           type: string
