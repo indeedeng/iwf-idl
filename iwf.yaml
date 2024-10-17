@@ -1363,17 +1363,19 @@ components:
           type: string
         value:
           $ref: '#/components/schemas/EncodedObject'
+    ExecutingStateIdMode:
+      type: string
+      enum:
+        - ENABLED_FOR_ALL
+        - ENABLED_FOR_STATES_WITH_WAIT_UNTIL
+        - DISABLED
     WorkflowConfig:
       type: object
       properties:
         disableSystemSearchAttribute: # deprecated in favor of executingStateIdMode
           type: boolean
         executingStateIdMode:
-          type: string
-          enum:
-            - ENABLED_FOR_ALL
-            - ENABLED_FOR_STATES_WITH_WAIT_UNTIL
-            - DISABLED
+          $ref: '#/components/schemas/ExecutingStateIdMode'
         continueAsNewThreshold:
           type: integer
         continueAsNewPageSizeInBytes:
