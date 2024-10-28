@@ -531,6 +531,15 @@ components:
           $ref: '#/components/schemas/WorkflowStateOptions'
         skipWaitUntil:
           type: boolean
+    WorkflowAlreadyStartedOptions:
+      type: object
+      required:
+        -  ignoreAlreadyStartedError
+      properties:
+        ignoreAlreadyStartedError:
+          type: boolean
+        requestId:
+          type: string
     WorkflowStartOptions:
       type: object
       properties:
@@ -555,6 +564,8 @@ components:
           $ref: '#/components/schemas/WorkflowConfig'
         useMemoForDataAttributes:
           type: boolean
+        workflowStartOptions:
+          $ref: '#/components/schemas/WorkflowAlreadyStartedOptions'
     IDReusePolicy:
       type: string
       enum:

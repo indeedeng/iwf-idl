@@ -551,6 +551,15 @@ components:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
         executeApiDataAttributesLoadingPolicy:
           $ref: '#/components/schemas/PersistenceLoadingPolicy'
+    WorkflowAlreadyStartedOptions:
+      type: object
+      required:
+        - ignoreAlreadyStartedError
+      properties:
+        ignoreAlreadyStartedError:
+          type: boolean
+        requestId:
+          type: string
     WorkflowStartOptions:
       type: object
       properties:
@@ -578,6 +587,8 @@ components:
           $ref: '#/components/schemas/IDReusePolicy'
         useMemoForDataAttributes:
           type: boolean
+        workflowStartOptions:
+          $ref: '#/components/schemas/WorkflowAlreadyStartedOptions'
     WorkflowIDReusePolicy:
       type: string
       enum:
