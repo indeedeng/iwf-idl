@@ -564,7 +564,7 @@ components:
           $ref: '#/components/schemas/WorkflowConfig'
         useMemoForDataAttributes:
           type: boolean
-        workflowStartOptions:
+        workflowAlreadyStartedOptions:
           $ref: '#/components/schemas/WorkflowAlreadyStartedOptions'
     IDReusePolicy:
       type: string
