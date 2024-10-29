@@ -100,7 +100,7 @@ paths:
       responses:
         '200':
           description: successful operation
-          content: { }
+          content: {}
         '400':
           description: Invalid input
           content:
@@ -139,7 +139,7 @@ paths:
       responses:
         '200':
           description: successful operation
-          content: { }
+          content: {}
         '400':
           description: Invalid input
           content:
