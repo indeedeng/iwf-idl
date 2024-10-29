@@ -70,7 +70,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/dataobjects/get:
     post:
-      summary: "get workflow data objects"
+      summary: "get workflow data objects aka data attributes"
       requestBody:
         content:
           application/json:
@@ -83,6 +83,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowGetDataObjectsResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/dataobjects/set:
+    post:
+      summary: "set workflow data objects aka data attributes"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowSetDataObjectsRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
         '400':
           description: Invalid input
           content:
@@ -104,6 +122,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowGetSearchAttributesResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/searchattributes/set:
+    post:
+      summary: "set workflow search attributes"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowSetSearchAttributesRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
         '400':
           description: Invalid input
           content:
@@ -756,6 +792,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+    WorkflowSetDataObjectsRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValue'
     WorkflowGetSearchAttributesRequest:
       type: object
       required:
@@ -772,6 +821,19 @@ components:
     WorkflowGetSearchAttributesResponse:
       type: object
       properties:
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttribute'
+    WorkflowSetSearchAttributesRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
         searchAttributes:
           type: array
           items:
