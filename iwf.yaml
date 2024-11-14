@@ -1476,3 +1476,35 @@ components:
           format: int64
         attempt: # it's from Attempt of Cadence/Temporal activity.GetInfo
           type: integer
+    EventType:
+      type: string
+      enum:
+        - WORKFLOW_START_EVENT
+        - WORKFLOW_COMPLETE_EVENT
+        - WORKFLOW_FAIL_EVENT
+    IwfEvent:
+      type: object
+      required:
+        - eventType
+        - workflowType
+        - workflowId
+        - workflowRunId
+      properties:
+        eventType:
+          $ref: '#/components/schemas/EventType'
+        workflowType:
+          type: string
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        stateId: # only applicable for certain events
+          type: string
+        stateExecutionId: # only applicable for certain events
+          type: string
+        startTimestamp: # only applicable for certain events
+          type: integer
+          format: int64
+        endTimestamp: # only applicable for certain events
+          type: integer
+          format: int64
