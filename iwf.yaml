@@ -1479,10 +1479,9 @@ components:
     EventType:
       type: string
       enum:
-        - WORKFLOW_START_EVENT
-        - WORKFLOW_COMPLETE_EVENT
-        - SET_DATA_ATTRIBUTES
-        - SET_SEARCH_ATTRIBUTES
+        - WORKFLOW_START
+        - WORKFLOW_COMPLETE
+        - WORKFLOW_FAIL
     IwfEvent:
       type: object
       required:
