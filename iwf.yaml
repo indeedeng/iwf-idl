@@ -1512,9 +1512,9 @@ components:
           type: string
         stateExecutionId: # only applicable for certain events
           type: string
-        startTimestamp: # only applicable for certain events
+        startTimestampInMs: # only applicable for certain events
           type: integer
           format: int64
-        endTimestamp: # only applicable for certain events
+        endTimestampInMs: # only applicable for certain events
           type: integer
           format: int64
