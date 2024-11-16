@@ -1481,14 +1481,14 @@ components:
       enum:
         - STATE_EXECUTE_ATTEMPT_FAIL_EVENT
         - STATE_EXECUTE_ATTEMPT_SUCC_EVENT
-        - STATE_EXECUTE_E2E_COMPLETE_EVENT
-        - STATE_EXECUTE_E2E_FAIL_EVENT
-        - STATE_EXECUTE_E2E_START_EVENT
+        - STATE_EXECUTE_EE_COMPLETE_EVENT
+        - STATE_EXECUTE_EE_FAIL_EVENT
+        - STATE_EXECUTE_EE_START_EVENT
         - STATE_WAIT_UNTIL_ATTEMPT_FAIL_EVENT
         - STATE_WAIT_UNTIL_ATTEMPT_SUCC_EVENT
-        - STATE_WAIT_UNTIL_E2E_COMPLETE_EVENT
-        - STATE_WAIT_UNTIL_E2E_FAIL_EVENT
-        - STATE_WAIT_UNTIL_E2E_START_EVENT
+        - STATE_WAIT_UNTIL_EE_COMPLETE_EVENT
+        - STATE_WAIT_UNTIL_EE_FAIL_EVENT
+        - STATE_WAIT_UNTIL_EE_START_EVENT
         - WORKFLOW_COMPLETE_EVENT
         - WORKFLOW_FAIL_EVENT
         - WORKFLOW_START_EVENT
@@ -1512,9 +1512,9 @@ components:
           type: string
         stateExecutionId: # only applicable for certain events
           type: string
-        startTimestamp: # only applicable for certain events
+        startTimestampInMs: # only applicable for certain events
           type: integer
           format: int64
-        endTimestamp: # only applicable for certain events
+        endTimestampInMs: # only applicable for certain events
           type: integer
           format: int64
