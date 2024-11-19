@@ -955,6 +955,8 @@ components:
           type: string
         skipSignalReapply: # whether skipping signals reapply after the reset point
           type: boolean
+        skipUpdateReapply: # whether to skip reapplying updates after the reset point
+          type: boolean
     WorkflowResetType:
       type: string
       enum:
