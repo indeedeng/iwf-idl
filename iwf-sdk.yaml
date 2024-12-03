@@ -1035,8 +1035,6 @@ components:
     ChannelInfo:
       type: object
       properties:
-        name:
-          type: string
         size:
           type: integer
     WorkflowWorkerRpcResponse:
