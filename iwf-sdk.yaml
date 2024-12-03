@@ -1024,6 +1024,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        signalChannelInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelInfo'
+        internalChannelInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelInfo'
+    ChannelInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        size:
+          type: integer
     WorkflowWorkerRpcResponse:
       type: object
       properties:
