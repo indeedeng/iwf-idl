@@ -1025,12 +1025,12 @@ components:
           items:
             $ref: '#/components/schemas/KeyValue'
         signalChannelInfos:
-          type: array
-          items:
+          type: object
+          additionalProperties:
             $ref: '#/components/schemas/ChannelInfo'
         internalChannelInfos:
-          type: array
-          items:
+          type: object
+          additionalProperties:
             $ref: '#/components/schemas/ChannelInfo'
     ChannelInfo:
       type: object
