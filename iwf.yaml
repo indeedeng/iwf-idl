@@ -1106,6 +1106,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValue'
+        signalChannelInfos:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ChannelInfo'
+        internalChannelInfos:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ChannelInfo'
+    ChannelInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        size:
+          type: integer
     WorkflowWorkerRpcResponse:
       type: object
       properties:
