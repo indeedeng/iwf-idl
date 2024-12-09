@@ -645,11 +645,15 @@ components:
       properties:
         persistenceLoadingType:
           $ref: '#/components/schemas/PersistenceLoadingType'
-        partialLoadingKeys:
+        partialLoadingKeys: # the keys that should be partially loaded during the loading. Only applicable to LOAD_PARTIAL_WITHOUT_LOCKING and LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
           type: array
           items:
             type: string
-        lockingKeys:
+        lockingKeys: # the keys that should be locked  during the loading. NOTE: Locked keys are always loaded, to simplify the usage. Only applicable to LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK and LOAD_ALL_WITH_PARTIAL_LOCK
+          type: array
+          items:
+            type: string
+        excludingKeys: # the keys that should be excluded from the loading. Applies to all loading types.
           type: array
           items:
             type: string
@@ -658,11 +662,11 @@ components:
     PersistenceLoadingType:
       type: string
       enum:
-        - LOAD_ALL_WITHOUT_LOCKING
-        - LOAD_PARTIAL_WITHOUT_LOCKING
-        - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK
-        - LOAD_NONE
-        - LOAD_ALL_WITH_PARTIAL_LOCK
+        - LOAD_ALL_WITHOUT_LOCKING # default behavior. Load all keys without locking.
+        - LOAD_PARTIAL_WITHOUT_LOCKING # Load only the keys specified in partialLoadingKeys without locking, and exclude the keys specified in excludingKeys.
+        - LOAD_PARTIAL_WITH_EXCLUSIVE_LOCK # Load only the keys specified in partialLoadingKeys + locking keys, and lock the lockingKeys with exclusive lock, and exclude the keys specified in excludingKeys.
+        - LOAD_NONE # Load nothing.
+        - LOAD_ALL_WITH_PARTIAL_LOCK # Load all keys, and lock the keys specified in lockingKeys with exclusive lock, and exclude the keys specified in excludingKeys.
     WorkerErrorResponse:
       type: object
       properties:
