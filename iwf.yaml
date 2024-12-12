@@ -1507,6 +1507,7 @@ components:
         - WORKFLOW_COMPLETE_EVENT
         - WORKFLOW_FAIL_EVENT
         - WORKFLOW_START_EVENT
+        - RPC_EXECUTION_EVENT
     IwfEvent:
       type: object
       required:
@@ -1526,6 +1527,8 @@ components:
         stateId: # only applicable for certain events
           type: string
         stateExecutionId: # only applicable for certain events
+          type: string
+        rpcName:
           type: string
         startTimestampInMs: # only applicable for certain events
           type: integer
