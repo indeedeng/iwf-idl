@@ -1429,6 +1429,8 @@ components:
           type: integer
         optimizeActivity:
           type: boolean
+        optimizeTimer:
+          type: boolean
     Context:
       type: object
       required:
