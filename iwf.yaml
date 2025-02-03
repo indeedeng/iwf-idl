@@ -1539,3 +1539,7 @@ components:
         endTimestampInMs: # only applicable for certain events
           type: integer
           format: int64
+        searchAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttribute'
