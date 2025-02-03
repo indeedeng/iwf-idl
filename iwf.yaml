@@ -1540,6 +1540,6 @@ components:
           type: integer
           format: int64
         searchAttributes:
-          type: object
-          additionalProperties: true
-          description: "JSON object containing all search attributes for the workflow"
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchAttribute'
