@@ -1539,3 +1539,7 @@ components:
         endTimestampInMs: # only applicable for certain events
           type: integer
           format: int64
+        searchAttributes:
+          type: object
+          additionalProperties: true
+          description: "JSON object containing all search attributes for the workflow"
