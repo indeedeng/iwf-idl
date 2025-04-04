@@ -825,11 +825,14 @@ components:
       required:
         - workflowRunId
         - workflowStatus
+        - workflowType
       properties:
         workflowRunId:
           type: string
         workflowStatus:
           $ref: '#/components/schemas/WorkflowStatus'
+        workflowType:
+          type: string
         results: # result will be return if needsResults is true in request, and workflow is completed
           type: array
           items:
