@@ -1315,7 +1315,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimerResult'
-        stateStartApiSucceeded: #TODO change this one in the future to waitUntilSucceeded
+        stateStartApiSucceeded:
+          type: boolean
+        stateWaitUntilFailed:
           type: boolean
     TimerCommand:
       type: object

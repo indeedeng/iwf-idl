@@ -1354,6 +1354,8 @@ components:
             $ref: '#/components/schemas/TimerResult'
         stateStartApiSucceeded:
           type: boolean
+        stateWaitUntilFailed:
+          type: boolean
     TimerCommand:
       type: object
       # either firingUnixTimestampSeconds or durationSeconds must be provided
