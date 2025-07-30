@@ -776,6 +776,8 @@ components:
       properties:
         workflowId:
           type: string
+        workflowRunId:
+          type: string
         messages:
           type: array
           items:

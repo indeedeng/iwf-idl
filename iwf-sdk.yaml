@@ -50,6 +50,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/publishToInternalChannel:
+    post:
+      summary: "signal a workflow"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishToInternalChannelRequest'
+      responses:
+        '200':
+          description: successful operation
+          content: {}
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/stop:
     post:
       summary: "stop a workflow"
@@ -720,6 +738,19 @@ components:
           type: string
         signalValue:
           $ref: '#/components/schemas/EncodedObject'
+    PublishToInternalChannelRequest:
+      type: object
+      required:
+        - workflowId
+      properties:
+        workflowId:
+          type: string
+        workflowRunId:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/InterStateChannelPublishing'
     WorkflowStopRequest:
       type: object
       required:
