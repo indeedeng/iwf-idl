@@ -107,28 +107,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/v1/workflow/encodedobject/load: #calling this encoded, becuae it can be used for input or output.
-    post:
-      summary: "load encoded object from storage"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              #make this an array to support batch loading
-              $ref: '#/components/schemas/EncodedObject'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EncodedObject'
-        '400':
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/searchattributes/get:
     post:
       summary: "get workflow search attributes"
@@ -168,6 +146,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/encodedobject/load: #calling this encoded, becuae it can be used for input or output.
+  post:
+    summary: "load encoded object from storage"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            #make this an array to support batch loading
+            $ref: '#/components/schemas/EncodedObject'
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncodedObject'
+      '400':
+        description: Invalid input
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/get:
     post:
       summary: "get a workflow's status and results(if completed & requested)"
@@ -478,9 +478,9 @@ components:
     EncodedObject:
       type: object
       properties:
-        storage:
+        extStoreId:
           type: string # e.g. s3, local, etc.
-        path:
+        extPath:
           type: string # e.g. s3://bucket/path/to/file
         encoding:
           type: string
