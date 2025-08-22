@@ -370,6 +370,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/encodedObjects/load:
+    post:
+      summary: "load the encoded objects from external storage"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoadEncodedObjectsRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoadEncodedObjectsResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /info/healthcheck:
     get:
       summary: "return health info of the server"
@@ -478,6 +499,14 @@ components:
           type: string
         data:
           type: string
+        extStoreId:
+          type: string
+          description: |
+            The id of external store that stores the data of the object. Must be used with id, not encoding/data.
+            The extStoreId must be configured in the server.
+        extObjId:
+          type: string
+          description: The id to load the data from external store. Must be used with with storeId, not encoding/data.
     SearchAttributeKeyAndType:
       type: object
       properties:
@@ -988,6 +1017,20 @@ components:
           type: integer
         pageNum:
           type: integer
+    LoadEncodedObjectsRequest:
+      type: object
+      properties: 
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncodedObject'
+    LoadEncodedObjectsResponse:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncodedObject'
     WorkflowDumpResponse:
       type: object
       required:
