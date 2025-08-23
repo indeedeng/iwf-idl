@@ -164,6 +164,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/workflow/encodedobject/load: #calling this encoded, becuae it can be used for input or output.
+  post:
+    summary: "load encoded object from storage"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            #make this an array to support batch loading
+            $ref: '#/components/schemas/EncodedObject'
+    responses:
+      '200':
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncodedObject'
+      '400':
+        description: Invalid input
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorResponse'
   /api/v1/workflow/get:
     post:
       summary: "get a workflow's status and results(if completed & requested)"
@@ -474,6 +496,10 @@ components:
     EncodedObject:
       type: object
       properties:
+        extStoreId:
+          type: string # e.g. s3, local, etc.
+        extPath:
+          type: string # e.g. s3://bucket/path/to/file
         encoding:
           type: string
         data:
@@ -641,6 +667,8 @@ components:
           items:
             type: string
         useKeyAsPrefix:
+          type: boolean
+        lazyLoadingLargeDataAttributes:
           type: boolean
     PersistenceLoadingType:
       type: string
@@ -1464,6 +1492,8 @@ components:
           type: boolean
         optimizeTimer:
           type: boolean
+        thresholdForExternalStore:
+          type: integer
     Context:
       type: object
       required:
