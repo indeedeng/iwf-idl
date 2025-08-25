@@ -1533,8 +1533,6 @@ components:
           type: boolean
         optimizeTimer:
           type: boolean
-        thresholdForExternalStore:
-          type: integer
     Context:
       type: object
       required:
