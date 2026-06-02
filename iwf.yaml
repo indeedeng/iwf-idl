@@ -1498,6 +1498,10 @@ components:
           type: string
         value:
           $ref: '#/components/schemas/EncodedObject'
+        multiValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncodedObject'
     ChannelRequestStatus:
       type: string
       enum:
