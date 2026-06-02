@@ -1498,7 +1498,7 @@ components:
           type: string
         value:
           $ref: '#/components/schemas/EncodedObject'
-        values:
+        multiValues:
           type: array
           items:
             $ref: '#/components/schemas/EncodedObject'
